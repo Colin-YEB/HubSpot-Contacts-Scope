@@ -1,0 +1,1422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>School of Rock – HubSpot Forms & Contact-Centric Architecture</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #030712;
+      --bg-elevated: #0b1020;
+      --bg-soft: #10172a;
+      --accent: #22c55e;
+      --accent-soft: rgba(34, 197, 94, 0.15);
+      --accent-2: #38bdf8;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --border-subtle: #1f2937;
+      --danger: #f97373;
+      --radius-lg: 18px;
+      --radius-pill: 999px;
+      --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.75);
+      scroll-behavior: smooth;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Inter", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+      background: radial-gradient(circle at 12% 20%, rgba(56, 189, 248, 0.14), transparent 28%), radial-gradient(circle at 88% 18%, rgba(168, 85, 247, 0.12), transparent 24%), linear-gradient(180deg, #020617 0%, #030712 42%, #020617 100%);
+      color: var(--text);
+    }
+
+    .page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(18px);
+      background: linear-gradient(to bottom, rgba(3, 7, 18, 0.95), rgba(3, 7, 18, 0.7));
+      border-bottom: 1px solid rgba(15, 23, 42, 0.8);
+    }
+
+    .nav-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0.65rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .brand-mark {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      background: conic-gradient(from 180deg, #22c55e, #38bdf8, #a855f7, #22c55e);
+      padding: 2px;
+      box-shadow: 0 10px 30px rgba(56, 189, 248, 0.5);
+    }
+
+    .brand-mark-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: 8px;
+      background: radial-gradient(circle at 30% 20%, rgba(248, 250, 252, 0.2), transparent 55%), #020617;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
+    }
+
+    .brand-name {
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+    }
+
+    .brand-sub {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+    }
+
+    .nav-links a {
+      padding: 0.35rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      color: var(--muted);
+      text-decoration: none;
+      transition: all 0.16s ease-out;
+      white-space: nowrap;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+      border-color: rgba(148, 163, 184, 0.5);
+      background: rgba(15, 23, 42, 0.85);
+    }
+
+    .nav-links a.primary {
+      border-color: rgba(34, 197, 94, 0.4);
+      background: radial-gradient(circle at top left, rgba(34, 197, 94, 0.25), rgba(15, 23, 42, 0.95));
+      color: #ecfdf5;
+    }
+
+    main {
+      flex: 1;
+    }
+
+    .wrapper {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 1.5rem 1.25rem 2.75rem;
+    }
+
+    /* Hero */
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.8fr);
+      gap: 1.75rem;
+      align-items: center;
+      margin-top: 1.25rem;
+      margin-bottom: 2.25rem;
+    }
+
+    @media (max-width: 860px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.25rem 0.6rem;
+      border-radius: var(--radius-pill);
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .eyebrow-pill {
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: #bbf7d0;
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-weight: 600;
+    }
+
+    h1 {
+      font-size: clamp(1.9rem, 3vw, 2.4rem);
+      line-height: 1.12;
+      margin: 0;
+      letter-spacing: 0.01em;
+    }
+
+    .hero-sub {
+      color: var(--muted);
+      font-size: 0.95rem;
+      max-width: 38rem;
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.4rem;
+    }
+
+    .tag {
+      padding: 0.25rem 0.6rem;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(31, 41, 55, 0.9);
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.25rem;
+      margin-top: 0.8rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .hero-meta span strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .hero-right {
+      position: relative;
+    }
+
+    .hero-card {
+      position: relative;
+      background: radial-gradient(circle at top, rgba(56, 189, 248, 0.12), transparent 60%), linear-gradient(145deg, #020617, #020617 40%, #020617 100%);
+      border-radius: 24px;
+      padding: 1.3rem 1.3rem 1rem;
+      border: 1px solid rgba(31, 41, 55, 0.95);
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+    }
+
+    .hero-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.9rem;
+    }
+
+    .hero-card-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .hero-pill {
+      padding: 0.2rem 0.7rem;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.45rem;
+      font-size: 0.72rem;
+    }
+
+    .hero-chip {
+      border-radius: 999px;
+      padding: 0.35rem 0.55rem;
+      border: 1px solid rgba(51, 65, 85, 0.9);
+      background: rgba(15, 23, 42, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.3rem;
+      color: var(--muted);
+    }
+
+    .hero-chip span {
+      font-size: 0.7rem;
+    }
+
+    .hero-chip strong {
+      font-size: 0.78rem;
+      color: var(--accent-2);
+      font-weight: 600;
+    }
+
+    .hero-footer {
+      margin-top: 0.9rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    .hero-status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #4ade80;
+      box-shadow: 0 0 0 6px rgba(34, 197, 94, 0.18);
+      margin-right: 0.4rem;
+    }
+
+    /* Sections */
+    section {
+      margin-bottom: 2.4rem;
+    }
+
+    section h2 {
+      font-size: 1.25rem;
+      margin: 0 0 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    section h2 span.badge {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      color: var(--muted);
+    }
+
+    section p {
+      margin: 0 0 0.75rem;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: 1.4rem;
+    }
+
+    @media (max-width: 900px) {
+      .grid-2 {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .card {
+      background: linear-gradient(145deg, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.96));
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(31, 41, 55, 0.95);
+      padding: 1rem 1rem 0.9rem;
+      box-shadow: 0 16px 45px rgba(15, 23, 42, 0.85);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.6rem;
+    }
+
+    .card-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .pill {
+      font-size: 0.7rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.96);
+      border: 1px solid rgba(51, 65, 85, 0.95);
+      color: var(--muted);
+    }
+
+    .list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      font-size: 0.86rem;
+      color: var(--muted);
+    }
+
+    .list li {
+      padding: 0.25rem 0;
+      display: flex;
+      gap: 0.45rem;
+      align-items: flex-start;
+    }
+
+    .list li::before {
+      content: "";
+      margin-top: 0.4rem;
+      width: 5px;
+      height: 5px;
+      border-radius: 999px;
+      background: rgba(148, 163, 184, 0.9);
+      flex-shrink: 0;
+    }
+
+    .list strong {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.35rem;
+    }
+
+    .pill-row span {
+      font-size: 0.72rem;
+      padding: 0.2rem 0.55rem;
+      border-radius: 999px;
+      border: 1px solid rgba(55, 65, 81, 0.95);
+      background: rgba(15, 23, 42, 0.96);
+      color: var(--muted);
+    }
+
+    .pill-row span.positive {
+      border-color: rgba(34, 197, 94, 0.7);
+      background: rgba(22, 101, 52, 0.2);
+      color: #bbf7d0;
+    }
+
+    .pill-row span.risk {
+      border-color: rgba(248, 113, 113, 0.8);
+      background: rgba(127, 29, 29, 0.22);
+      color: #fecaca;
+    }
+
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 0.6rem;
+      font-size: 0.8rem;
+    }
+
+    .table th,
+    .table td {
+      padding: 0.45rem 0.6rem;
+      border-bottom: 1px solid rgba(31, 41, 55, 0.9);
+    }
+
+    .table th {
+      text-align: left;
+      font-weight: 500;
+      color: var(--muted);
+    }
+
+    .table td.code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 0.78rem;
+      color: #e5e7eb;
+    }
+
+    .code-block {
+      margin-top: 0.5rem;
+      padding: 0.6rem 0.7rem;
+      background: #020617;
+      border-radius: 12px;
+      border: 1px solid rgba(30, 64, 175, 0.85);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 0.78rem;
+      color: #e5e7eb;
+      overflow-x: auto;
+      max-height: 300px;
+      white-space: pre;
+    }
+
+    .diagram {
+      margin-top: 0.5rem;
+      padding: 0.85rem 0.9rem;
+      background: #0a1222;
+      border-radius: 14px;
+      border: 1px solid rgba(59, 72, 95, 0.9);
+      box-shadow: var(--shadow-soft);
+      overflow-x: auto;
+    }
+
+    .diagram-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.38rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid rgba(55, 65, 81, 0.95);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--muted);
+      font-size: 0.78rem;
+      cursor: pointer;
+      transition: all 0.15s ease-out;
+    }
+
+    .diagram-toggle:hover {
+      color: var(--text);
+      border-color: rgba(56, 189, 248, 0.7);
+      background: rgba(8, 47, 73, 0.35);
+    }
+
+    .diagram-toggle .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #38bdf8;
+      box-shadow: 0 0 0 6px rgba(56, 189, 248, 0.2);
+    }
+
+    .diagram-note {
+      font-size: 0.76rem;
+      color: var(--muted);
+      margin: 0.25rem 0 0.35rem;
+    }
+
+    .diagram-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(8px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+
+    .diagram-modal.active {
+      display: flex;
+    }
+
+    .diagram-modal-content {
+      background: #0b1020;
+      border: 1px solid rgba(59, 72, 95, 0.95);
+      border-radius: 16px;
+      width: min(1200px, 92vw);
+      height: min(780px, 88vh);
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.45);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .diagram-modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.65rem 0.9rem;
+      border-bottom: 1px solid rgba(59, 72, 95, 0.8);
+      background: rgba(15, 23, 42, 0.8);
+    }
+
+    .diagram-modal-title {
+      font-size: 0.92rem;
+      color: var(--text);
+    }
+
+    .diagram-controls {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .diagram-btn {
+      border: 1px solid rgba(59, 72, 95, 0.9);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--muted);
+      border-radius: 10px;
+      padding: 0.35rem 0.65rem;
+      cursor: pointer;
+      font-size: 0.8rem;
+      transition: all 0.15s ease-out;
+    }
+
+    .diagram-btn:hover {
+      color: var(--text);
+      border-color: rgba(56, 189, 248, 0.7);
+    }
+
+    .diagram-modal-body {
+      flex: 1;
+      position: relative;
+      background: radial-gradient(circle at 18% 20%, rgba(56, 189, 248, 0.08), transparent 35%), #050816;
+      overflow: hidden;
+    }
+
+    .diagram-viewer {
+      position: absolute;
+      inset: 0;
+      cursor: grab;
+    }
+
+    .diagram-viewer:active {
+      cursor: grabbing;
+    }
+
+    .diagram-viewer-inner {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(1);
+      transform-origin: center center;
+    }
+
+    .code-label {
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-bottom: 0.25rem;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-top: 0.35rem;
+      font-size: 0.74rem;
+    }
+
+    .badge-row span {
+      padding: 0.18rem 0.55rem;
+      border-radius: 999px;
+      border: 1px solid rgba(55, 65, 81, 0.95);
+      background: rgba(15, 23, 42, 0.96);
+      color: var(--muted);
+    }
+
+    .badge-row span.key {
+      border-color: rgba(56, 189, 248, 0.9);
+      background: rgba(8, 47, 73, 0.6);
+      color: #e0f2fe;
+    }
+
+    .timeline {
+      position: relative;
+      padding-left: 1rem;
+      margin-top: 0.5rem;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 0.3rem;
+      top: 0.2rem;
+      bottom: 0.2rem;
+      width: 2px;
+      background: linear-gradient(to bottom, rgba(51, 65, 85, 0.9), rgba(15, 23, 42, 0.5));
+    }
+
+    .timeline-step {
+      position: relative;
+      padding-left: 0.7rem;
+      margin-bottom: 0.55rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .timeline-step::before {
+      content: "";
+      position: absolute;
+      left: -0.03rem;
+      top: 0.2rem;
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      border: 2px solid rgba(148, 163, 184, 1);
+      background: #020617;
+    }
+
+    .timeline-step strong {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    footer {
+      border-top: 1px solid rgba(15, 23, 42, 0.9);
+      padding: 0.9rem 1.25rem 1.2rem;
+      color: var(--muted);
+      font-size: 0.78rem;
+    }
+
+    footer .footer-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="nav-inner">
+        <div class="brand">
+          <div class="brand-mark">
+            <div class="brand-mark-inner">SoR</div>
+          </div>
+          <div class="brand-text">
+            <div class="brand-name">HubSpot Forms Architecture</div>
+            <div class="brand-sub">School of Rock · Contact-first CRM & Bridge Integration</div>
+          </div>
+        </div>
+        <nav class="nav-links">
+          <a href="#scope">Scope</a>
+          <a href="#architecture">Architecture</a>
+          <a href="#data-model">Data Model</a>
+          <a href="#flows">Flows</a>
+          <a href="#implementation">Implementation</a>
+          <a href="#risks" class="primary">Risks & Open Items</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <div class="wrapper">
+        <!-- HERO -->
+        <section class="hero" id="top">
+          <div class="hero-left">
+            <div class="eyebrow">
+              <span class="eyebrow-pill">Discovery & CRM Architecture</span>
+              <span>From iframe forms → HubSpot forms → Contact-first model</span>
+            </div>
+            <h1>
+              School of Rock – HubSpot Forms & Contact-Centric Lead Management
+            </h1>
+            <p class="hero-sub">
+              This page summarizes the Metajive discovery scope, the target HubSpot architecture, and the
+              end-to-end data flows between HubSpot, Bridge, and Pike13. It is designed as a living reference for
+              marketing, CRM, product, and engineering teams.
+            </p>
+            <div class="hero-tags">
+              <span class="tag">Single HubSpot portal · Franchise users</span>
+              <span class="tag">Contact-first lifecycle</span>
+              <span class="tag">Bridge → Pike13 sync</span>
+              <span class="tag">Multi-owner routing</span>
+            </div>
+            <div class="hero-meta">
+              <span><strong>Client:</strong> School of Rock (YEB)</span>
+              <span><strong>Partner:</strong> Metajive</span>
+              <span><strong>Timeframe (Discovery):</strong> Dec 2025 – Jan 2026</span>
+            </div>
+          </div>
+
+          <div class="hero-right">
+            <div class="hero-card">
+              <div class="hero-card-header">
+                <div class="hero-card-title">System Snapshot</div>
+                <div class="hero-pill">Contact → Bridge → Pike13</div>
+              </div>
+              <div class="hero-grid">
+                <div class="hero-chip">
+                  <span>Primary object</span>
+                  <strong>Contact</strong>
+                </div>
+                <div class="hero-chip">
+                  <span>Lead routing</span>
+                  <strong>Location-based</strong>
+                </div>
+                <div class="hero-chip">
+                  <span>Owners</span>
+                  <strong>Multi-user</strong>
+                </div>
+                <div class="hero-chip">
+                  <span>Forms</span>
+                  <strong>HubSpot-native</strong>
+                </div>
+                <div class="hero-chip">
+                  <span>Sync</span>
+                  <strong>2-way (key fields)</strong>
+                </div>
+                <div class="hero-chip">
+                  <span>Deals</span>
+                  <strong>Trigger-based</strong>
+                </div>
+              </div>
+              <div class="hero-footer">
+                <div style="display:flex;align-items:center;gap:0.3rem;">
+                  <span class="hero-status-dot"></span>
+                  <span>Discovery-ready – implementation follows SOW output.</span>
+                </div>
+                <span>Audience: Marketing · CRM · Product · Dev</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SCOPE & GOALS -->
+        <section id="scope">
+          <h2>
+            Scope & Goals
+            <span class="badge">From SOW & SoR requirements</span>
+          </h2>
+          <div class="grid-2">
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">Metajive Discovery Scope (Summary)</div>
+                <div class="pill">Time & Materials · 40 hrs (max)</div>
+              </div>
+              <ul class="list">
+                <li>Assess transition from iframe-based forms to HubSpot-native forms for School of Rock (move fully onto HubSpot native forms).</li>
+                <li>Understand technical implications for the website and the Bridge layer into Pike13.</li>
+                <li>Support stakeholder meetings and documentation of risks, scenarios, and approaches.</li>
+                <li>Produce a future implementation SOW outlining technical approach and effort.</li>
+              </ul>
+              <div class="pill-row">
+                <span class="positive">Discovery only</span>
+                <span>Implementation of CRM strategy is out of scope</span>
+                <span>API / integration build is out of scope</span>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">SoR CRM Objectives</div>
+                <div class="pill">Contact-first · Franchise users</div>
+              </div>
+              <ul class="list">
+                <li><strong>Move from Deal-first → Contact-first:</strong> franchise users primarily work leads from the Contact record.</li>
+                <li><strong>Use HubSpot forms:</strong> all public forms submit into HubSpot with a required Location field.</li>
+                <li><strong>Multi-owner support:</strong> each Contact can be owned by multiple users via a dedicated multi-user property.</li>
+                <li><strong>Bridge & Pike13 alignment:</strong> Bridge creates/links Pike13 contacts and deals based on HubSpot data and Location.</li>
+              </ul>
+              <div class="pill-row">
+                <span class="positive">Respect Single Portal + Many Locations</span>
+                <span class="positive">Avoid duplicate Contacts and Deals</span>
+                <span class="risk">Avoid lifecycle moving backwards</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ARCHITECTURE OVERVIEW -->
+        <section id="architecture">
+          <h2>
+            Target Architecture
+            <span class="badge">Contact-centric · Location-aware · Bridge-integrated</span>
+          </h2>
+          <div class="grid-2">
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">High-Level Design</div>
+                <div class="pill">Core principles</div>
+              </div>
+              <ul class="list">
+                <li><strong>Contacts as source of truth:</strong> lifecycle, ownership, and location context live on the Contact.</li>
+                <li><strong>Deals are derived, not primary:</strong> created only when specific triggers occur (trial, enrollment, etc.).</li>
+                <li><strong>Location drives routing:</strong> every form submission includes a Location; routing and ownership rules use it as the anchor.</li>
+                <li><strong>Multi-owner model:</strong> a single multi-user property tracks all relevant owners by location.</li>
+                <li><strong>Automation directive field:</strong> a hidden text field encodes "what should happen next" for workflows and Bridge.</li>
+              </ul>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">System Interaction</div>
+                <div class="pill">Web → HubSpot → Bridge → Pike13</div>
+              </div>
+              <ul class="list">
+                <li><strong>Form → HubSpot:</strong> user submits HubSpot form; Location captured.</li>
+                <li><strong>Contact is updated:</strong> ownership and lifecycle directive set on the Contact.</li>
+                <li><strong>Tasks/Deals fire:</strong> workflows create tasks and optional deals per directive.</li>
+                <li><strong>Bridge handoff:</strong> payload sent to Bridge with contact/deal + Location.</li>
+                <li><strong>Pike13 sync:</strong> Bridge creates/links Pike13 records and returns IDs/status to HubSpot.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- DATA MODEL -->
+        <section id="data-model">
+          <h2>
+            Data Model & Key Properties
+            <span class="badge">Contacts · Deals · Location & Ownership</span>
+          </h2>
+          <div class="grid-2">
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">Contact Properties</div>
+                <div class="pill">Routing, ownership, lifecycle</div>
+              </div>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Label</th>
+                    <th>Internal Name</th>
+                    <th>Type</th>
+                    <th>Notes</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Multi form owner</td>
+                    <td class="code">multi_form_owner</td>
+                    <td>User (multi-select)</td>
+                    <td>Holds all owners per Contact across locations; used for task/alert routing.</td>
+                  </tr>
+                  <tr>
+                    <td>Location</td>
+                    <td class="code">location</td>
+                    <td>Dropdown (multi-select)</td>
+                    <td>Captured from HubSpot forms and written to the Location property (or a dedicated location map); drives routing and Bridge/Pike13 mapping.</td>
+                  </tr>
+                  <tr>
+                    <td>School location lifecycle details</td>
+                    <td class="code">school_location_lifecycle_details</td>
+                    <td>Single-line text</td>
+                    <td>Encoded automation directive (lifecycle, alert, pipeline, location).</td>
+                  </tr>
+                  <tr>
+                    <td>Pike13 Contact ID(s)</td>
+                    <td class="code">hs_object_id</td>
+                    <td>Text</td>
+                    <td>Use HubSpot <code>hs_object_id</code> as temporary anchor until a dedicated Pike13 ID field is defined.</td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="badge-row">
+                <span class="key">Contacts = single canonical profile</span>
+                <span>Location determines routing for each submission</span>
+                <span>Owners are appended per location, not overwritten</span>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">Automation Directive Format</div>
+                <div class="pill">School location lifecycle details</div>
+              </div>
+              <p class="code-label">Recommended encoding:</p>
+              <div class="code-block">
+loc=DENVER_01; lifecycle=LEAD; alert=new_lead; pipeline=TRIAL
+loc=BOULDER_02; lifecycle=MQL; alert=trial_followup; pipeline=ENROLLMENT
+              </div>
+              <p>
+                This single-line field is populated by workflows and read by other workflows (and Bridge) to determine
+                what should happen next: which task to create (same alert set across locations), whether to create a Deal,
+                how to adjust lifecycle, and which pipeline to use. Current direction: handle early lead state on the Contact; an optional lightweight 3-stage Lead deal pipeline can be added later if needed.
+              </p>
+              <div class="badge-row">
+                <span class="key">Set by automation only</span>
+                <span>Human-readable and machine-parseable</span>
+                <span>Safe to extend with new keys over time</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- FLOWS & DIAGRAMS -->
+        <section id="flows">
+          <h2>
+            Key Flows & Diagrams
+            <span class="badge">Mermaid-ready · System & user perspectives</span>
+          </h2>
+
+          <div class="card" style="margin-bottom:1.4rem;">
+            <div class="card-header">
+              <div class="card-title">End-to-End Flow: Form → Contact → Tasks/Deals → Bridge → Pike13</div>
+              <div class="pill">Technical view</div>
+            </div>
+            <div class="diagram-note" style="margin-bottom:0.4rem;">Preview below · Open for zoom/pan</div>
+            <button class="diagram-toggle diagram-open" data-target="diagram-endtoend" data-title="End-to-End Flow">
+              <span class="dot"></span>
+              <span>Open in modal</span>
+            </button>
+            <div class="diagram mermaid" id="diagram-endtoend">
+flowchart LR
+    subgraph UserSide["User/Website/BAT/SoR"]
+        F1["Form submission<br/>Location selected"]
+    end
+
+    subgraph HubSpot["HubSpot"]
+        D1{"Contact exists?"}
+        CNew["Create contact"]
+        CUpd["Update contact"]
+
+        LStage["Set/keep lifecycle stage"]
+        Loc["Set/update location"]
+        Owners["Update multi_form_owner<br/>(location-based owners)"]
+        Meta["Set lifecycle details<br/>(loc=..; lifecycle=..; alert=..; pipeline=..)"]
+
+        subgraph Tasks["Task automation"]
+            TNew["Create new lead task"]
+            TExist["Create existing lead follow-up task"]
+            TTrial["Create trial confirmation task"]
+            TEnroll["Create enrollment task"]
+            TDone["Task completed"]
+            TUpdate["Update lifecycle & details"]
+        end
+
+        subgraph Deals["Deal automation"]
+            DTrig{"Deal trigger?"}
+            DCreate["Create trial/enrollment deal"]
+        end
+    end
+
+    subgraph Bridge["Bridge service"]
+        BSend["Send contact/deal payload<br/>to Bridge"]
+        BCheck["Bridge checks Pike13<br/>(email + location)"]
+        BCreateC["Create Pike13 contact<br/>if none exists"]
+        BCreateD["Create/update Pike13 deal"]
+        BSyncBack["Sync Pike13 IDs/status<br/>back to HubSpot"]
+    end
+
+    subgraph Pike13["Pike13"]
+        PContact["Pike13 contact<br/>(per location)"]
+        PDeal["Pike13 deal<br/>(trial / enrollment)"]
+    end
+
+    F1 --> D1
+    D1 -- "No" --> CNew
+    CNew --> LStage
+    CNew --> Loc
+    Loc --> Owners
+    Owners --> Meta
+    Meta --> BSend
+
+    D1 -- "Yes" --> CUpd
+    CUpd --> LStage
+    CUpd --> Loc
+    Loc --> Owners
+    Owners --> Meta
+    Meta --> BSend
+
+    BSend --> BCheck
+    BCheck -->|No match| BCreateC --> PContact
+    BCheck -->|Existing| PContact
+
+    BSend --> BCreateD --> PDeal
+    PContact --> BSyncBack
+    PDeal --> BSyncBack
+    BSyncBack --> Meta
+
+    Meta -->|"alert=new_lead"| TNew
+    Meta -->|"alert=existing_lead"| TExist
+    Meta -->|"alert=trial_followup"| TTrial
+    Meta -->|"alert=enrollment_followup"| TEnroll
+
+    TNew --> TDone
+    TExist --> TDone
+    TTrial --> TDone
+    TEnroll --> TDone
+    TDone --> TUpdate
+    TUpdate --> Meta
+
+    Meta --> DTrig
+    DTrig -- "Yes" --> DCreate --> BSend
+    DTrig -- "No" --> Meta
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">Franchise User POV</div>
+                <div class="pill">"What happens when a lead comes in?"</div>
+              </div>
+              <div class="diagram-note" style="margin-bottom:0.4rem;">Preview below · Open for zoom/pan</div>
+              <button class="diagram-toggle diagram-open" data-target="diagram-franchise" data-title="Franchise User POV">
+                <span class="dot"></span>
+                <span>Open in modal</span>
+              </button>
+              <div class="diagram mermaid" id="diagram-franchise" style="max-height:260px;">
+flowchart TD
+    subgraph HS["HubSpot"]
+        FS["Form submitted<br/>with location"]
+        Cx["Contact (new or existing)"]
+        OwProp["multi_form_owner updated<br/>for that location"]
+        Meta["School location lifecycle details<br/>(alert + lifecycle + pipeline)"]
+        Task{"Which task type?"}
+        TLead["Task: New lead"]
+        TFollow["Task: Lead follow-up"]
+        TTrial["Task: Trial confirmation"]
+        TEnroll["Task: Enrollment"]
+        TAssigned["Task assigned to franchise user"]
+        TDone["Task completed"]
+        LUpdate["Lifecycle & details updated"]
+        DTrig{"Deal triggered?"}
+        DCreate["Deal created<br/>(trial/enrollment)"]
+    end
+
+    subgraph Franchise["Franchise user"]
+        ViewTasks["Views tasks in HubSpot"]
+        Call["Calls/emails lead"]
+        BookTrial["Books trial / enrollment"]
+        CompleteTask["Marks task complete"]
+    end
+
+    FS --> Cx
+    Cx --> OwProp --> Meta --> Task
+
+    Task -->|new_lead| TLead
+    Task -->|existing_lead| TFollow
+    Task -->|trial_followup| TTrial
+    Task -->|enrollment_followup| TEnroll
+
+    TLead --> TAssigned
+    TFollow --> TAssigned
+    TTrial --> TAssigned
+    TEnroll --> TAssigned
+
+    TAssigned --> ViewTasks --> Call --> BookTrial --> CompleteTask --> TDone
+    TDone --> LUpdate --> DTrig
+
+    DTrig -- "Yes" --> DCreate
+    DTrig -- "No" --> Cx
+              </div>
+              <p>
+                This diagram is ideal for training franchise teams: it shows that they primarily work Tasks from Contacts,
+                and Deals are created automatically when trials or enrollments occur.
+              </p>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">System Interaction</div>
+                <div class="pill">Architecture overview</div>
+              </div>
+              <div class="diagram-note" style="margin-bottom:0.4rem;">Preview below · Open for zoom/pan</div>
+              <button class="diagram-toggle diagram-open" data-target="diagram-systems" data-title="Systems Overview">
+                <span class="dot"></span>
+                <span>Open in modal</span>
+              </button>
+              <div class="diagram mermaid" id="diagram-systems" style="max-height:260px;">
+flowchart LR
+    subgraph Web["Web properties"]
+        Site["Website forms / BAT / SoR"]
+    end
+
+    subgraph HS["HubSpot CRM"]
+        Forms["HubSpot forms"]
+        Contacts["Contacts<br/>(multi_form_owner, location, lifecycle details)"]
+        Deals["Deals<br/>(trial/enrollment)"]
+        Tasks["Tasks & workflows"]
+    end
+
+    subgraph BR["Bridge"]
+        BIngest["Ingest HubSpot payloads"]
+        BLogic["Location & contact matching"]
+        BToPike["Create/update Pike13 records"]
+        BBack["Push IDs/status back"]
+    end
+
+    subgraph P13["Pike13"]
+        PContacts["Pike13 contacts<br/>(per location)"]
+        PDeals["Pike13 deals<br/>(per location)"]
+    end
+
+    Site --> Forms --> Contacts
+    Contacts --> Tasks
+    Contacts --> Deals
+
+    Contacts --> BIngest
+    Deals --> BIngest
+
+    BIngest --> BLogic --> BToPike
+    BToPike --> PContacts
+    BToPike --> PDeals
+
+    PContacts --> BBack
+    PDeals --> BBack
+    BBack --> Contacts
+    BBack --> Deals
+              </div>
+              <p>
+                Use this for technical review across engineering, Bridge, and product to align on handoff points and data
+                contracts.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- IMPLEMENTATION PHASES -->
+        <section id="implementation">
+          <h2>
+            Implementation Phases
+            <span class="badge">From discovery → build → rollout</span>
+          </h2>
+          <div class="grid-2">
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">Phase 1 – Foundations</div>
+                <div class="pill">Data model & forms</div>
+              </div>
+              <ul class="list">
+                <li>Create and configure Contact properties (multi_form_owner, location, lifecycle details).</li>
+                <li>Finalize Location taxonomy and mapping to Bridge/Pike13 identifiers.</li>
+                <li>Design and implement HubSpot forms with required Location fields.</li>
+                <li>Document owner mapping per Location for routing.</li>
+              </ul>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">Phase 2 – Automation</div>
+                <div class="pill">Workflows & tasking</div>
+              </div>
+              <ul class="list">
+                <li>Build workflows for new vs existing Contacts on submission.</li>
+                <li>Implement lifecycle directive encoding in School location lifecycle details.</li>
+                <li>Configure task creation and task-completion automation.</li>
+                <li>Configure deal-creation rules for trial and enrollment triggers.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="grid-2" style="margin-top:1rem;">
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">Phase 3 – Bridge & Pike13 Enhancements</div>
+                <div class="pill">2-way sync</div>
+              </div>
+              <ul class="list">
+                <li>Update Bridge to consume new payloads (Location, owners, lifecycle details).</li>
+                <li>Implement Pike13 contact/deal creation based on email + Location.</li>
+                <li>Implement sync-back of Pike13 IDs and status into HubSpot contacts/deals.</li>
+                <li>Define clear ownership rules when HubSpot vs Pike13 values differ.</li>
+              </ul>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">Phase 4 – Training & Reporting</div>
+                <div class="pill">Rollout & measurement</div>
+              </div>
+              <ul class="list">
+                <li>Train franchise users using the Franchise POV diagram and example records.</li>
+                <li>Build dashboards for lead volume, response time, trial/ enrollment conversion by Location.</li>
+                <li>Monitor duplicate creation, owner assignment accuracy, and lifecycle correctness.</li>
+                <li>Iterate on workflows and directive encoding as new edge cases emerge.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- RISKS & OPEN ITEMS -->
+        <section id="risks">
+          <h2>
+            Risks & Open Questions
+            <span class="badge">To validate during discovery</span>
+          </h2>
+          <div class="grid-2">
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">Key Risks</div>
+                <div class="pill">Assumptions to stress-test</div>
+              </div>
+              <ul class="list">
+                <li><strong>Ownership ambiguity:</strong> clarity is required on how owners are mapped to locations and how conflicts will be resolved.</li>
+                <li><strong>Lifecycle safety:</strong> rules must prevent unintended backwards movement (e.g., Customer → Lead).</li>
+                <li><strong>Duplicate handling:</strong> consistent matching logic (email + location) is needed across HubSpot and Bridge.</li>
+                <li><strong>Bridge latency/failure:</strong> workflows must gracefully handle sync delays or errors from Bridge/Pike13.</li>
+                <li><strong>Task overload:</strong> automation should avoid spamming users with low-value tasks.</li>
+              </ul>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">Open Decisions</div>
+                <div class="pill">To finalize with stakeholders</div>
+              </div>
+              <ul class="list">
+                <li>Exact internal naming / structure for Pike13 ID properties on Contacts and Deals (Bridge currently handles its own linking logic).</li>
+                <li>Definition of "internal" forms and how they should behave (no lifecycle change, limited routing, etc.).</li>
+                <li>Detailed field list for 2-way synced attributes (status tags, attendance, multi-program support).</li>
+                <li>Whether to add an optional lightweight 3-stage Lead deal pipeline (lead handling is Contact-only for now).</li>
+                <li>Long-term handling of multi-program enrollment and cross-location membership.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer>
+      <div class="footer-inner">
+        <span>
+          Built as a reference page for the School of Rock HubSpot forms discovery and implementation planning.
+        </span>
+        <span>
+          Sections can be copied into docs, slidedecks, and implementation tickets as needed.
+        </span>
+      </div>
+    </footer>
+  </div>
+</body>
+<div class="diagram-modal" id="diagram-modal">
+  <div class="diagram-modal-content">
+    <div class="diagram-modal-header">
+      <div class="diagram-modal-title" id="diagram-modal-title">Diagram</div>
+      <div class="diagram-controls">
+        <button class="diagram-btn" id="zoom-out">-</button>
+        <button class="diagram-btn" id="zoom-reset">Reset</button>
+        <button class="diagram-btn" id="zoom-in">+</button>
+        <button class="diagram-btn" id="diagram-close">Close</button>
+      </div>
+    </div>
+    <div class="diagram-modal-body">
+      <div class="diagram-viewer" id="diagram-viewer">
+        <div class="diagram-viewer-inner" id="diagram-viewer-inner"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.5/dist/mermaid.min.js"></script>
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: "dark",
+      securityLevel: "loose",
+      flowchart: { htmlLabels: true },
+      themeVariables: {
+        primaryColor: "#0b1224",
+        primaryBorderColor: "#38bdf8",
+        primaryTextColor: "#e5e7eb",
+        lineColor: "#38bdf8",
+        secondaryColor: "#0f172a",
+      },
+    });
+  }
+
+  (function() {
+    const modal = document.getElementById("diagram-modal");
+    const titleEl = document.getElementById("diagram-modal-title");
+    const viewer = document.getElementById("diagram-viewer");
+    const viewerInner = document.getElementById("diagram-viewer-inner");
+    const btnClose = document.getElementById("diagram-close");
+    const btnIn = document.getElementById("zoom-in");
+    const btnOut = document.getElementById("zoom-out");
+    const btnReset = document.getElementById("zoom-reset");
+    const openers = document.querySelectorAll(".diagram-open");
+
+    let scale = 1;
+    let translateX = 0;
+    let translateY = 0;
+    let isPanning = false;
+    let startX = 0;
+    let startY = 0;
+
+    function applyTransform() {
+      viewerInner.style.transform = `translate(calc(-50% + ${translateX}px), calc(-50% + ${translateY}px)) scale(${scale})`;
+    }
+
+    function resetView() {
+      scale = 1;
+      translateX = 0;
+      translateY = 0;
+      applyTransform();
+    }
+
+    openers.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const targetId = btn.getAttribute("data-target");
+        const title = btn.getAttribute("data-title") || "Diagram";
+        const src = document.getElementById(targetId);
+        if (!src) return;
+        titleEl.textContent = title;
+        viewerInner.innerHTML = src.innerHTML;
+        resetView();
+        modal.classList.add("active");
+      });
+    });
+
+    btnClose.addEventListener("click", () => {
+      modal.classList.remove("active");
+    });
+
+    btnIn.addEventListener("click", () => {
+      scale = scale + 0.2;
+      applyTransform();
+    });
+
+    btnOut.addEventListener("click", () => {
+      scale = Math.max(scale - 0.2, 0.05);
+      applyTransform();
+    });
+
+    btnReset.addEventListener("click", resetView);
+
+    viewer.addEventListener("wheel", (e) => {
+      e.preventDefault();
+      const delta = e.deltaY > 0 ? -0.1 : 0.1;
+      scale = Math.max(scale + delta, 0.05);
+      applyTransform();
+    }, { passive: false });
+
+    viewer.addEventListener("mousedown", (e) => {
+      isPanning = true;
+      startX = e.clientX;
+      startY = e.clientY;
+    });
+
+    window.addEventListener("mousemove", (e) => {
+      if (!isPanning) return;
+      translateX += (e.clientX - startX);
+      translateY += (e.clientY - startY);
+      startX = e.clientX;
+      startY = e.clientY;
+      applyTransform();
+    });
+
+    window.addEventListener("mouseup", () => {
+      isPanning = false;
+    });
+
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) {
+        modal.classList.remove("active");
+      }
+    });
+  })();
+</script>
+</html>
