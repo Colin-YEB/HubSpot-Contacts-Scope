@@ -1,0 +1,1908 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>School of Rock – Discovery Tracker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #0b0c10;
+      --bg-elevated: #101118;
+      --bg-soft: #14151f;
+      --accent: #e92b2d;
+      --accent-soft: rgba(233, 43, 45, 0.2);
+      --accent-2: #ff6b7a;
+      --text: #f8fafc;
+      --muted: #aeb6c1;
+      --border-subtle: #1f222b;
+      --danger: #f25f6b;
+      --radius-lg: 18px;
+      --radius-pill: 999px;
+      --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.75);
+      --sor-blue: #3b82f6;
+      --metajive-purple: #8b5cf6;
+      --both-orange: #f59e0b;
+      --answered-green: #22c55e;
+      --pending-red: #ef4444;
+      --partial-yellow: #eab308;
+      scroll-behavior: smooth;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Inter", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+      background: radial-gradient(circle at 18% 18%, rgba(233, 43, 45, 0.18), transparent 32%), radial-gradient(circle at 82% 20%, rgba(122, 30, 216, 0.16), transparent 26%), linear-gradient(180deg, #0b0c10 0%, #0f1119 42%, #0b0c10 100%);
+      color: var(--text);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    .page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(18px);
+      background: linear-gradient(to bottom, rgba(3, 7, 18, 0.95), rgba(3, 7, 18, 0.7));
+      border-bottom: 1px solid rgba(15, 23, 42, 0.8);
+    }
+
+    .nav-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0.8rem 1.6rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      border-top: 1px solid rgba(59, 72, 95, 0.35);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .brand-mark {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      background: conic-gradient(from 180deg, #d81e2d, #f25f6b, #6b46c1, #d81e2d);
+      padding: 2px;
+      box-shadow: 0 10px 30px rgba(216, 30, 45, 0.45);
+    }
+
+    .brand-mark-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: 8px;
+      background: radial-gradient(circle at 30% 20%, rgba(248, 250, 252, 0.2), transparent 55%), #020617;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      color: #f25f6b;
+      font-weight: 700;
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
+    }
+
+    .brand-name {
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+    }
+
+    .brand-sub {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      font-size: 0.86rem;
+    }
+
+    .nav-links a {
+      padding: 0.35rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      color: var(--muted);
+      text-decoration: none;
+      transition: all 0.16s ease-out;
+      white-space: nowrap;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+      border-color: rgba(148, 163, 184, 0.5);
+      background: rgba(15, 23, 42, 0.85);
+    }
+
+    .nav-links a.primary {
+      border-color: rgba(216, 30, 45, 0.55);
+      background: radial-gradient(circle at top left, rgba(216, 30, 45, 0.32), rgba(15, 23, 42, 0.95));
+      color: #fde8eb;
+    }
+
+    main {
+      flex: 1;
+    }
+
+    .wrapper {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 1.7rem 1.6rem 2.9rem;
+    }
+
+    /* Hero */
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.8fr);
+      gap: 1.4rem;
+      align-items: center;
+      margin-top: 0.8rem;
+      margin-bottom: 2.25rem;
+    }
+
+    @media (max-width: 860px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.25rem 0.6rem;
+      border-radius: var(--radius-pill);
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .eyebrow-pill {
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: #fde8eb;
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-weight: 600;
+    }
+
+    h1 {
+      font-size: clamp(1.9rem, 3vw, 2.4rem);
+      line-height: 1.12;
+      margin: 0;
+      letter-spacing: 0.01em;
+    }
+
+    .hero-sub {
+      color: var(--text);
+      font-size: 1.02rem;
+      max-width: 38rem;
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.4rem;
+    }
+
+    .tag {
+      padding: 0.25rem 0.6rem;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(31, 41, 55, 0.9);
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.25rem;
+      margin-top: 0.8rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .hero-meta span strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .hero-right {
+      position: relative;
+    }
+
+    .hero-card {
+      position: relative;
+      background: radial-gradient(circle at top, rgba(216, 30, 45, 0.12), transparent 60%), linear-gradient(145deg, #0f1119, #0f1119 40%, #0b0c10 100%);
+      border-radius: 24px;
+      padding: 1.3rem 1.3rem 1rem;
+      border: 1px solid rgba(59, 72, 95, 0.85);
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+    }
+
+    .hero-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.9rem;
+    }
+
+    .hero-card-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .hero-pill {
+      padding: 0.2rem 0.7rem;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
+
+    /* Progress Tracker */
+    .progress-tracker {
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(59, 72, 95, 0.85);
+      border-radius: 16px;
+      padding: 1rem 1.2rem;
+      margin-bottom: 1rem;
+    }
+
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.6rem;
+    }
+
+    .progress-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .progress-count {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--accent-2);
+    }
+
+    .progress-bar {
+      height: 8px;
+      background: rgba(31, 41, 55, 0.9);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      border-radius: 999px;
+      transition: width 0.3s ease;
+    }
+
+    .progress-labels {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 0.5rem;
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.45rem;
+      font-size: 0.8rem;
+    }
+
+    .hero-chip {
+      border-radius: 999px;
+      padding: 0.35rem 0.55rem;
+      border: 1px solid rgba(51, 65, 85, 0.9);
+      background: rgba(15, 23, 42, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.3rem;
+      color: var(--muted);
+    }
+
+    .hero-chip span {
+      font-size: 0.7rem;
+    }
+
+    .hero-chip strong {
+      font-size: 0.78rem;
+      color: var(--accent-2);
+      font-weight: 600;
+    }
+
+    .hero-footer {
+      margin-top: 0.9rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    .hero-status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 0 6px rgba(233, 43, 45, 0.18);
+      margin-right: 0.4rem;
+    }
+
+    /* Sections */
+    section {
+      margin-bottom: 2.4rem;
+      scroll-margin-top: 96px;
+    }
+
+    section h2 {
+      font-size: 1.32rem;
+      margin: 0 0 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    section h2 span.badge {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      color: var(--muted);
+    }
+
+    section p {
+      margin: 0 0 0.75rem;
+      font-size: 0.98rem;
+      color: var(--muted);
+      text-align: left;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: 1.4rem;
+    }
+
+    @media (max-width: 900px) {
+      .grid-2 {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .card {
+      background: linear-gradient(140deg, rgba(16, 18, 24, 0.98), rgba(14, 16, 22, 0.94));
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(59, 72, 95, 0.8);
+      padding: 1.1rem 1.15rem 1rem;
+      box-shadow: 0 20px 60px rgba(6, 11, 25, 0.72);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.6rem;
+    }
+
+    .card-title {
+      font-size: 1rem;
+      font-weight: 650;
+      color: var(--text);
+    }
+
+    .pill {
+      font-size: 0.7rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.96);
+      border: 1px solid rgba(51, 65, 85, 0.95);
+      color: var(--muted);
+      letter-spacing: 0.01em;
+    }
+
+    .list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      font-size: 0.94rem;
+      color: var(--muted);
+      text-align: left;
+    }
+
+    .list li {
+      padding: 0.25rem 0;
+      display: flex;
+      gap: 0.45rem;
+      align-items: flex-start;
+    }
+
+    .list li::before {
+      content: "";
+      margin-top: 0.4rem;
+      width: 5px;
+      height: 5px;
+      border-radius: 999px;
+      background: rgba(226, 232, 240, 0.9);
+      flex-shrink: 0;
+    }
+
+    .list strong {
+      color: var(--text);
+      font-weight: 600;
+      display: inline-block;
+      min-width: 160px;
+      max-width: 210px;
+    }
+
+    @media (max-width: 720px) {
+      .list strong {
+        min-width: 140px;
+        max-width: 190px;
+      }
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.35rem;
+    }
+
+    .pill-row span {
+      font-size: 0.72rem;
+      padding: 0.2rem 0.55rem;
+      border-radius: 999px;
+      border: 1px solid rgba(59, 72, 95, 0.8);
+      background: rgba(15, 23, 42, 0.96);
+      color: var(--muted);
+    }
+
+    .pill-row span.positive {
+      border-color: rgba(216, 30, 45, 0.45);
+      background: rgba(216, 30, 45, 0.16);
+      color: #f8d7dd;
+    }
+
+    .pill-row span.risk {
+      border-color: rgba(248, 113, 113, 0.45);
+      background: rgba(248, 113, 113, 0.16);
+      color: #fcdedf;
+    }
+
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 0.6rem;
+      font-size: 0.86rem;
+    }
+
+    .table th,
+    .table td {
+      padding: 0.45rem 0.6rem;
+      border-bottom: 1px solid rgba(31, 41, 55, 0.9);
+    }
+
+    .table th {
+      text-align: left;
+      font-weight: 600;
+      color: var(--muted);
+    }
+
+    .table td.code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 0.82rem;
+      color: #f8fafc;
+    }
+
+    .code-block {
+      margin-top: 0.5rem;
+      padding: 0.6rem 0.7rem;
+      background: #020617;
+      border-radius: 12px;
+      border: 1px solid rgba(30, 64, 175, 0.85);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 0.82rem;
+      color: #f8fafc;
+      overflow-x: auto;
+      max-height: 300px;
+      white-space: pre;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-top: 0.35rem;
+      font-size: 0.74rem;
+    }
+
+    .badge-row span {
+      padding: 0.18rem 0.55rem;
+      border-radius: 999px;
+      border: 1px solid rgba(55, 65, 81, 0.95);
+      background: rgba(15, 23, 42, 0.96);
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .badge-row span.key {
+      border-color: rgba(233, 43, 45, 0.7);
+      background: rgba(233, 43, 45, 0.16);
+      color: #fde8eb;
+    }
+
+    /* Owner Badges */
+    .owner-badge {
+      font-size: 0.68rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .owner-badge.sor {
+      background: rgba(59, 130, 246, 0.2);
+      border: 1px solid rgba(59, 130, 246, 0.5);
+      color: #93c5fd;
+    }
+
+    .owner-badge.metajive {
+      background: rgba(139, 92, 246, 0.2);
+      border: 1px solid rgba(139, 92, 246, 0.5);
+      color: #c4b5fd;
+    }
+
+    .owner-badge.both {
+      background: rgba(245, 158, 11, 0.2);
+      border: 1px solid rgba(245, 158, 11, 0.5);
+      color: #fcd34d;
+    }
+
+    /* Status Badges */
+    .status-badge {
+      font-size: 0.68rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .status-badge.answered {
+      background: rgba(34, 197, 94, 0.2);
+      border: 1px solid rgba(34, 197, 94, 0.5);
+      color: #86efac;
+    }
+
+    .status-badge.pending {
+      background: rgba(239, 68, 68, 0.2);
+      border: 1px solid rgba(239, 68, 68, 0.5);
+      color: #fca5a5;
+    }
+
+    .status-badge.partial {
+      background: rgba(234, 179, 8, 0.2);
+      border: 1px solid rgba(234, 179, 8, 0.5);
+      color: #fde047;
+    }
+
+    /* Question Items */
+    .question-item {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(59, 72, 95, 0.6);
+      border-radius: 12px;
+      padding: 0.9rem 1rem;
+      margin-bottom: 0.6rem;
+      transition: all 0.15s ease;
+    }
+
+    .question-item:hover {
+      border-color: rgba(59, 72, 95, 0.9);
+    }
+
+    .question-item.answered {
+      border-color: rgba(34, 197, 94, 0.3);
+      background: rgba(34, 197, 94, 0.05);
+    }
+
+    .question-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+
+    .question-check {
+      width: 20px;
+      height: 20px;
+      margin-top: 2px;
+      cursor: pointer;
+      accent-color: var(--answered-green);
+    }
+
+    .question-content {
+      flex: 1;
+    }
+
+    .question-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.4rem;
+      flex-wrap: wrap;
+    }
+
+    .question-text {
+      font-size: 0.92rem;
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .question-desc {
+      font-size: 0.84rem;
+      color: var(--muted);
+      margin-top: 0.25rem;
+    }
+
+    .question-actions {
+      margin-top: 0.6rem;
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .toggle-answer {
+      font-size: 0.78rem;
+      padding: 0.3rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid rgba(59, 72, 95, 0.9);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .toggle-answer:hover {
+      color: var(--text);
+      border-color: rgba(233, 43, 45, 0.55);
+    }
+
+    .answer-area {
+      margin-top: 0.75rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid rgba(59, 72, 95, 0.5);
+    }
+
+    .answer-area.hidden {
+      display: none;
+    }
+
+    .answer-textarea {
+      width: 100%;
+      min-height: 80px;
+      padding: 0.6rem 0.75rem;
+      border-radius: 10px;
+      border: 1px solid rgba(59, 72, 95, 0.8);
+      background: rgba(2, 6, 23, 0.8);
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.88rem;
+      resize: vertical;
+    }
+
+    .answer-textarea:focus {
+      outline: none;
+      border-color: rgba(233, 43, 45, 0.55);
+    }
+
+    .answer-saved {
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(59, 72, 95, 0.6);
+      border-radius: 10px;
+      padding: 0.6rem 0.75rem;
+      font-size: 0.88rem;
+      color: var(--text);
+      white-space: pre-wrap;
+    }
+
+    .answer-actions {
+      margin-top: 0.5rem;
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .save-answer, .edit-answer {
+      font-size: 0.76rem;
+      padding: 0.3rem 0.65rem;
+      border-radius: 8px;
+      border: 1px solid rgba(34, 197, 94, 0.5);
+      background: rgba(34, 197, 94, 0.15);
+      color: #86efac;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .save-answer:hover, .edit-answer:hover {
+      background: rgba(34, 197, 94, 0.25);
+    }
+
+    /* Decision Log */
+    .decision-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid rgba(31, 41, 55, 0.5);
+    }
+
+    .decision-item:last-child {
+      border-bottom: none;
+    }
+
+    .decision-check {
+      color: var(--answered-green);
+      font-size: 1rem;
+      margin-top: 2px;
+    }
+
+    .decision-content {
+      flex: 1;
+    }
+
+    .decision-title {
+      font-size: 0.92rem;
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .decision-value {
+      font-size: 0.84rem;
+      color: var(--accent-2);
+      margin-top: 0.15rem;
+    }
+
+    /* Export/Import Controls */
+    .data-controls {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .data-btn {
+      font-size: 0.78rem;
+      padding: 0.4rem 0.8rem;
+      border-radius: 999px;
+      border: 1px solid rgba(59, 72, 95, 0.9);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .data-btn:hover {
+      color: var(--text);
+      border-color: rgba(233, 43, 45, 0.55);
+      background: rgba(233, 43, 45, 0.1);
+    }
+
+    /* Stakeholder Contacts */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 0.75rem;
+      margin-top: 0.5rem;
+    }
+
+    .contact-card {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(59, 72, 95, 0.6);
+      border-radius: 12px;
+      padding: 0.8rem 1rem;
+    }
+
+    .contact-name {
+      font-size: 0.92rem;
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .contact-role {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .contact-org {
+      font-size: 0.72rem;
+      color: var(--accent-2);
+      margin-top: 0.25rem;
+    }
+
+    /* Diagram styles (from original) */
+    .diagram {
+      margin-top: 0.5rem;
+      padding: 0.85rem 0.9rem;
+      background: #0d101b;
+      border-radius: 14px;
+      border: 1px solid rgba(59, 72, 95, 0.9);
+      box-shadow: var(--shadow-soft);
+      overflow-x: auto;
+      max-height: 220px;
+    }
+
+    .diagram-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.38rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid rgba(55, 65, 81, 0.95);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--muted);
+      font-size: 0.78rem;
+      cursor: pointer;
+      transition: all 0.15s ease-out;
+    }
+
+    .diagram-toggle:hover {
+      color: var(--text);
+      border-color: rgba(233, 43, 45, 0.55);
+      background: rgba(233, 43, 45, 0.16);
+    }
+
+    .diagram-toggle .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #d81e2d;
+      box-shadow: 0 0 0 6px rgba(216, 30, 45, 0.18);
+    }
+
+    .diagram-note {
+      font-size: 0.76rem;
+      color: var(--muted);
+      margin: 0.25rem 0 0.35rem;
+    }
+
+    .diagram-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(8px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+
+    .diagram-modal.active {
+      display: flex;
+    }
+
+    .diagram-modal-content {
+      background: #0b1020;
+      border: 1px solid rgba(59, 72, 95, 0.95);
+      border-radius: 16px;
+      width: min(1200px, 92vw);
+      height: min(780px, 88vh);
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.45);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .diagram-modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.65rem 0.9rem;
+      border-bottom: 1px solid rgba(59, 72, 95, 0.8);
+      background: rgba(15, 23, 42, 0.8);
+    }
+
+    .diagram-modal-title {
+      font-size: 0.92rem;
+      color: var(--text);
+    }
+
+    .diagram-controls {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .diagram-btn {
+      border: 1px solid rgba(59, 72, 95, 0.9);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--muted);
+      border-radius: 10px;
+      padding: 0.35rem 0.65rem;
+      cursor: pointer;
+      font-size: 0.8rem;
+      transition: all 0.15s ease-out;
+    }
+
+    .diagram-btn:hover {
+      color: var(--text);
+      border-color: rgba(233, 43, 45, 0.55);
+    }
+
+    .diagram-modal-body {
+      flex: 1;
+      position: relative;
+      background: radial-gradient(circle at 18% 20%, rgba(233, 43, 45, 0.12), transparent 35%), #050816;
+      overflow: hidden;
+    }
+
+    .diagram-viewer {
+      position: absolute;
+      inset: 0;
+      cursor: grab;
+    }
+
+    .diagram-viewer:active {
+      cursor: grabbing;
+    }
+
+    .diagram-viewer-inner {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(1);
+      transform-origin: center center;
+    }
+
+    .code-label {
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-bottom: 0.25rem;
+    }
+
+    /* Last updated */
+    .last-updated {
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-top: 0.5rem;
+    }
+
+    footer {
+      border-top: 1px solid rgba(15, 23, 42, 0.9);
+      padding: 0.9rem 1.25rem 1.2rem;
+      color: var(--muted);
+      font-size: 0.78rem;
+    }
+
+    footer .footer-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="nav-inner">
+        <div class="brand">
+          <div class="brand-mark">
+            <div class="brand-mark-inner">SoR</div>
+          </div>
+          <div class="brand-text">
+            <div class="brand-name">Discovery Tracker</div>
+            <div class="brand-sub">School of Rock · HubSpot Forms Migration</div>
+          </div>
+        </div>
+        <nav class="nav-links">
+          <a href="#decisions">Decisions</a>
+          <a href="#questions">Questions</a>
+          <a href="#contacts">Contacts</a>
+          <a href="#architecture">Architecture</a>
+          <a href="#flows">Flows</a>
+          <a href="so_r_hub_spot_forms_architecture_page.html" class="primary">Full Docs</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <div class="wrapper">
+        <!-- HERO -->
+        <section class="hero" id="top">
+          <div class="hero-left">
+            <div class="eyebrow">
+              <span class="eyebrow-pill">Interactive Tracker</span>
+              <span>Track decisions & open questions</span>
+            </div>
+            <h1>
+              School of Rock – Discovery Tracker
+            </h1>
+            <p class="hero-sub">
+              This interactive page tracks confirmed decisions, open questions, and their owners.
+              Check items off as they're answered, add notes, and export progress.
+            </p>
+            <div class="hero-meta">
+              <span><strong>Client:</strong> School of Rock (YEB)</span>
+              <span><strong>Partner:</strong> Metajive</span>
+              <span><strong>Timeframe:</strong> Dec 2025 – Jan 2026</span>
+            </div>
+          </div>
+
+          <div class="hero-right">
+            <!-- Progress Tracker -->
+            <div class="progress-tracker">
+              <div class="progress-header">
+                <span class="progress-title">Discovery Progress</span>
+                <span class="progress-count" id="progress-count">0 / 10</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+              </div>
+              <div class="progress-labels">
+                <span>Questions answered</span>
+                <span id="progress-percent">0%</span>
+              </div>
+            </div>
+
+            <div class="data-controls">
+              <button class="data-btn" onclick="exportData()">📥 Export JSON</button>
+              <button class="data-btn" onclick="document.getElementById('import-file').click()">📤 Import JSON</button>
+              <input type="file" id="import-file" accept=".json" style="display:none" onchange="importData(event)">
+              <button class="data-btn" onclick="clearData()">🗑️ Clear All</button>
+            </div>
+            <div class="last-updated" id="last-updated"></div>
+          </div>
+        </section>
+
+        <!-- DECISIONS MADE -->
+        <section id="decisions">
+          <h2>
+            Decisions Made
+            <span class="badge">Confirmed from discovery</span>
+          </h2>
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">Locked Decisions</div>
+              <div class="pill">From Answers.md</div>
+            </div>
+
+            <div class="decision-item">
+              <span class="decision-check">✓</span>
+              <div class="decision-content">
+                <div class="decision-title">Location field type</div>
+                <div class="decision-value">Single-select dropdown (may need multi-select helper for history)</div>
+              </div>
+            </div>
+
+            <div class="decision-item">
+              <span class="decision-check">✓</span>
+              <div class="decision-content">
+                <div class="decision-title">Multi-owner behavior</div>
+                <div class="decision-value">APPEND only – never clear the field when contact moves or joins another location</div>
+              </div>
+            </div>
+
+            <div class="decision-item">
+              <span class="decision-check">✓</span>
+              <div class="decision-content">
+                <div class="decision-title">Two-way sync to Pike13</div>
+                <div class="decision-value">Does NOT sync to Pike13 – HubSpot is source of truth for these fields</div>
+              </div>
+            </div>
+
+            <div class="decision-item">
+              <span class="decision-check">✓</span>
+              <div class="decision-content">
+                <div class="decision-title">Lead pipeline stages</div>
+                <div class="decision-value">New → Waiting → Contacted → Won → Lost (if adding lightweight Lead pipeline)</div>
+              </div>
+            </div>
+
+            <div class="decision-item">
+              <span class="decision-check">✓</span>
+              <div class="decision-content">
+                <div class="decision-title">Deal creation trigger</div>
+                <div class="decision-value">Pike13/automation creates deals on trial/conversion – not manual</div>
+              </div>
+            </div>
+
+            <div class="decision-item">
+              <span class="decision-check">✓</span>
+              <div class="decision-content">
+                <div class="decision-title">Terminology</div>
+                <div class="decision-value">Use "lead status" not "lifecycle" for per-location tracking</div>
+              </div>
+            </div>
+
+            <div class="decision-item">
+              <span class="decision-check">✓</span>
+              <div class="decision-content">
+                <div class="decision-title">Dedupe strategy</div>
+                <div class="decision-value">HubSpot dedupe (email) + Location-aware logic in workflows/Bridge</div>
+              </div>
+            </div>
+
+            <div class="decision-item">
+              <span class="decision-check">✓</span>
+              <div class="decision-content">
+                <div class="decision-title">Location on forms</div>
+                <div class="decision-value">Required on all forms (including embedded) – validate against canonical list</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- DISCOVERY QUESTIONS -->
+        <section id="questions">
+          <h2>
+            Discovery Questions
+            <span class="badge">Track answers here</span>
+          </h2>
+
+          <div class="card" style="margin-bottom: 1rem;">
+            <div class="card-header">
+              <div class="card-title">Critical – Block Implementation</div>
+              <div class="pill">Must answer before build</div>
+            </div>
+
+            <!-- Question 1 -->
+            <div class="question-item" data-id="q1">
+              <div class="question-header">
+                <input type="checkbox" class="question-check" onchange="updateQuestion('q1')">
+                <div class="question-content">
+                  <div class="question-meta">
+                    <span class="owner-badge both">Both</span>
+                    <span class="status-badge pending" id="status-q1">Pending</span>
+                  </div>
+                  <div class="question-text">Location → Bridge/Pike13 ID mapping</div>
+                  <div class="question-desc">How does each Location value map to Pike13 record owners/IDs? Is it linked by record owner?</div>
+                  <div class="question-actions">
+                    <button class="toggle-answer" onclick="toggleAnswer('q1')">+ Add Answer</button>
+                  </div>
+                  <div class="answer-area hidden" id="answer-area-q1">
+                    <textarea class="answer-textarea" id="answer-q1" placeholder="Enter answer..."></textarea>
+                    <div class="answer-actions">
+                      <button class="save-answer" onclick="saveAnswer('q1')">Save Answer</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="question-item" data-id="q2">
+              <div class="question-header">
+                <input type="checkbox" class="question-check" onchange="updateQuestion('q2')">
+                <div class="question-content">
+                  <div class="question-meta">
+                    <span class="owner-badge both">Both</span>
+                    <span class="status-badge pending" id="status-q2">Pending</span>
+                  </div>
+                  <div class="question-text">Pike13 ID field structure</div>
+                  <div class="question-desc">Single ID field vs per-location IDs (array/JSON)? Where stored on Contact/Deal? Could use multi-line and append.</div>
+                  <div class="question-actions">
+                    <button class="toggle-answer" onclick="toggleAnswer('q2')">+ Add Answer</button>
+                  </div>
+                  <div class="answer-area hidden" id="answer-area-q2">
+                    <textarea class="answer-textarea" id="answer-q2" placeholder="Enter answer..."></textarea>
+                    <div class="answer-actions">
+                      <button class="save-answer" onclick="saveAnswer('q2')">Save Answer</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="question-item" data-id="q3">
+              <div class="question-header">
+                <input type="checkbox" class="question-check" onchange="updateQuestion('q3')">
+                <div class="question-content">
+                  <div class="question-meta">
+                    <span class="owner-badge metajive">Metajive</span>
+                    <span class="status-badge pending" id="status-q3">Pending</span>
+                  </div>
+                  <div class="question-text">Bridge payload contract</div>
+                  <div class="question-desc">Exact schema (Contact + optional Deal), required fields, response shape, idempotency key (email+location?), retry/error handling.</div>
+                  <div class="question-actions">
+                    <button class="toggle-answer" onclick="toggleAnswer('q3')">+ Add Answer</button>
+                  </div>
+                  <div class="answer-area hidden" id="answer-area-q3">
+                    <textarea class="answer-textarea" id="answer-q3" placeholder="Enter answer..."></textarea>
+                    <div class="answer-actions">
+                      <button class="save-answer" onclick="saveAnswer('q3')">Save Answer</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="question-item" data-id="q4">
+              <div class="question-header">
+                <input type="checkbox" class="question-check" onchange="updateQuestion('q4')">
+                <div class="question-content">
+                  <div class="question-meta">
+                    <span class="owner-badge sor">SoR</span>
+                    <span class="status-badge pending" id="status-q4">Pending</span>
+                  </div>
+                  <div class="question-text">Forms inventory</div>
+                  <div class="question-desc">Complete list of public vs internal forms. Which bypass lifecycle/task/deal automation?</div>
+                  <div class="question-actions">
+                    <button class="toggle-answer" onclick="toggleAnswer('q4')">+ Add Answer</button>
+                  </div>
+                  <div class="answer-area hidden" id="answer-area-q4">
+                    <textarea class="answer-textarea" id="answer-q4" placeholder="Enter answer..."></textarea>
+                    <div class="answer-actions">
+                      <button class="save-answer" onclick="saveAnswer('q4')">Save Answer</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="question-item" data-id="q5">
+              <div class="question-header">
+                <input type="checkbox" class="question-check" onchange="updateQuestion('q5')">
+                <div class="question-content">
+                  <div class="question-meta">
+                    <span class="owner-badge metajive">Metajive</span>
+                    <span class="status-badge pending" id="status-q5">Pending</span>
+                  </div>
+                  <div class="question-text">Cross-location membership</div>
+                  <div class="question-desc">How does Bridge select/create the right Pike13 record when contact spans locations?</div>
+                  <div class="question-actions">
+                    <button class="toggle-answer" onclick="toggleAnswer('q5')">+ Add Answer</button>
+                  </div>
+                  <div class="answer-area hidden" id="answer-area-q5">
+                    <textarea class="answer-textarea" id="answer-q5" placeholder="Enter answer..."></textarea>
+                    <div class="answer-actions">
+                      <button class="save-answer" onclick="saveAnswer('q5')">Save Answer</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">Important – Needed for Build</div>
+              <div class="pill">Answer during discovery</div>
+            </div>
+
+            <!-- Question 6 -->
+            <div class="question-item" data-id="q6">
+              <div class="question-header">
+                <input type="checkbox" class="question-check" onchange="updateQuestion('q6')">
+                <div class="question-content">
+                  <div class="question-meta">
+                    <span class="owner-badge sor">SoR</span>
+                    <span class="status-badge pending" id="status-q6">Pending</span>
+                  </div>
+                  <div class="question-text">Owner roster per location</div>
+                  <div class="question-desc">Complete list of primary/backup owners for each location. Escalation rules.</div>
+                  <div class="question-actions">
+                    <button class="toggle-answer" onclick="toggleAnswer('q6')">+ Add Answer</button>
+                  </div>
+                  <div class="answer-area hidden" id="answer-area-q6">
+                    <textarea class="answer-textarea" id="answer-q6" placeholder="Enter answer..."></textarea>
+                    <div class="answer-actions">
+                      <button class="save-answer" onclick="saveAnswer('q6')">Save Answer</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Question 7 -->
+            <div class="question-item" data-id="q7">
+              <div class="question-header">
+                <input type="checkbox" class="question-check" onchange="updateQuestion('q7')">
+                <div class="question-content">
+                  <div class="question-meta">
+                    <span class="owner-badge sor">SoR</span>
+                    <span class="status-badge pending" id="status-q7">Pending</span>
+                  </div>
+                  <div class="question-text">Task SLAs</div>
+                  <div class="question-desc">Response time expectations per location. Throttling rules to avoid task spam.</div>
+                  <div class="question-actions">
+                    <button class="toggle-answer" onclick="toggleAnswer('q7')">+ Add Answer</button>
+                  </div>
+                  <div class="answer-area hidden" id="answer-area-q7">
+                    <textarea class="answer-textarea" id="answer-q7" placeholder="Enter answer..."></textarea>
+                    <div class="answer-actions">
+                      <button class="save-answer" onclick="saveAnswer('q7')">Save Answer</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Question 8 -->
+            <div class="question-item" data-id="q8">
+              <div class="question-header">
+                <input type="checkbox" class="question-check" onchange="updateQuestion('q8')">
+                <div class="question-content">
+                  <div class="question-meta">
+                    <span class="owner-badge metajive">Metajive</span>
+                    <span class="status-badge pending" id="status-q8">Pending</span>
+                  </div>
+                  <div class="question-text">Error handling</div>
+                  <div class="question-desc">How should workflows handle Bridge latency/failures? Alerts, retry logic, manual queue?</div>
+                  <div class="question-actions">
+                    <button class="toggle-answer" onclick="toggleAnswer('q8')">+ Add Answer</button>
+                  </div>
+                  <div class="answer-area hidden" id="answer-area-q8">
+                    <textarea class="answer-textarea" id="answer-q8" placeholder="Enter answer..."></textarea>
+                    <div class="answer-actions">
+                      <button class="save-answer" onclick="saveAnswer('q8')">Save Answer</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Question 9 -->
+            <div class="question-item" data-id="q9">
+              <div class="question-header">
+                <input type="checkbox" class="question-check" onchange="updateQuestion('q9')">
+                <div class="question-content">
+                  <div class="question-meta">
+                    <span class="owner-badge sor">SoR</span>
+                    <span class="status-badge pending" id="status-q9">Pending</span>
+                  </div>
+                  <div class="question-text">Lifecycle guardrails</div>
+                  <div class="question-desc">Exact rules to prevent backwards movement (e.g., Customer → Lead).</div>
+                  <div class="question-actions">
+                    <button class="toggle-answer" onclick="toggleAnswer('q9')">+ Add Answer</button>
+                  </div>
+                  <div class="answer-area hidden" id="answer-area-q9">
+                    <textarea class="answer-textarea" id="answer-q9" placeholder="Enter answer..."></textarea>
+                    <div class="answer-actions">
+                      <button class="save-answer" onclick="saveAnswer('q9')">Save Answer</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Question 10 -->
+            <div class="question-item" data-id="q10">
+              <div class="question-header">
+                <input type="checkbox" class="question-check" onchange="updateQuestion('q10')">
+                <div class="question-content">
+                  <div class="question-meta">
+                    <span class="owner-badge metajive">Metajive</span>
+                    <span class="status-badge pending" id="status-q10">Pending</span>
+                  </div>
+                  <div class="question-text">Idempotent create/update flow</div>
+                  <div class="question-desc">Define clear idempotent flow (email+Location as key) and how Bridge reports failures to HubSpot.</div>
+                  <div class="question-actions">
+                    <button class="toggle-answer" onclick="toggleAnswer('q10')">+ Add Answer</button>
+                  </div>
+                  <div class="answer-area hidden" id="answer-area-q10">
+                    <textarea class="answer-textarea" id="answer-q10" placeholder="Enter answer..."></textarea>
+                    <div class="answer-actions">
+                      <button class="save-answer" onclick="saveAnswer('q10')">Save Answer</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- STAKEHOLDER CONTACTS -->
+        <section id="contacts">
+          <h2>
+            Stakeholder Contacts
+            <span class="badge">Key people</span>
+          </h2>
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">Project Team</div>
+              <div class="pill">Reach out as needed</div>
+            </div>
+            <div class="contact-grid">
+              <div class="contact-card">
+                <div class="contact-name">Angela O'Neill</div>
+                <div class="contact-role">Project Contact</div>
+                <div class="contact-org">Metajive</div>
+              </div>
+              <div class="contact-card">
+                <div class="contact-name">Ali Kendall</div>
+                <div class="contact-role">Sr Vice President, Marketing</div>
+                <div class="contact-org">School of Rock (SoR)</div>
+              </div>
+              <div class="contact-card">
+                <div class="contact-name">Colin Johnson</div>
+                <div class="contact-role">Technical Lead</div>
+                <div class="contact-org">YEB</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ARCHITECTURE (condensed) -->
+        <section id="architecture">
+          <h2>
+            Architecture Summary
+            <span class="badge">Quick reference</span>
+          </h2>
+          <div class="grid-2">
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">Core Principles</div>
+                <div class="pill">Contact-first</div>
+              </div>
+              <ul class="list">
+                <li><strong>Contacts as source of truth:</strong> lifecycle, ownership, and location context live on the Contact.</li>
+                <li><strong>Deals are derived:</strong> created only when specific triggers occur (trial, enrollment).</li>
+                <li><strong>Location drives routing:</strong> every form includes Location; routing uses it as anchor.</li>
+                <li><strong>Multi-owner model:</strong> single multi-user property tracks all owners (append-only).</li>
+              </ul>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">Key Properties</div>
+                <div class="pill">Contact record</div>
+              </div>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Property</th>
+                    <th>Type</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="code">multi_form_owner</td>
+                    <td>User (multi-select)</td>
+                  </tr>
+                  <tr>
+                    <td class="code">location</td>
+                    <td>Dropdown (single)</td>
+                  </tr>
+                  <tr>
+                    <td class="code">school_location_lifecycle_details</td>
+                    <td>Text (encoded)</td>
+                  </tr>
+                  <tr>
+                    <td class="code">pike13_contact_id</td>
+                    <td>Text (TBD)</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- FLOWS (condensed) -->
+        <section id="flows">
+          <h2>
+            Key Flows
+            <span class="badge">Diagrams</span>
+          </h2>
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">System Interaction</div>
+              <div class="pill">Web → HubSpot → Bridge → Pike13</div>
+            </div>
+            <div class="diagram-note">Preview below · Open for zoom/pan</div>
+            <button class="diagram-toggle diagram-open" data-target="diagram-systems" data-title="Systems Overview">
+              <span class="dot"></span>
+              <span>Open in modal</span>
+            </button>
+            <div class="diagram mermaid" id="diagram-systems" style="max-height:260px;">
+flowchart LR
+    subgraph Web["Web properties"]
+        Site["Website forms / BAT / SoR"]
+    end
+
+    subgraph HS["HubSpot CRM"]
+        Forms["HubSpot forms"]
+        Contacts["Contacts<br/>(multi_form_owner, location, lifecycle details)"]
+        Deals["Deals<br/>(trial/enrollment)"]
+        Tasks["Tasks & workflows"]
+    end
+
+    subgraph BR["Bridge"]
+        BIngest["Ingest HubSpot payloads"]
+        BLogic["Location & contact matching"]
+        BToPike["Create/update Pike13 records"]
+        BBack["Push IDs/status back"]
+    end
+
+    subgraph P13["Pike13"]
+        PContacts["Pike13 contacts<br/>(per location)"]
+        PDeals["Pike13 deals<br/>(per location)"]
+    end
+
+    Site --> Forms --> Contacts
+    Contacts --> Tasks
+    Contacts --> Deals
+
+    Contacts --> BIngest
+    Deals --> BIngest
+
+    BIngest --> BLogic --> BToPike
+    BToPike --> PContacts
+    BToPike --> PDeals
+
+    PContacts --> BBack
+    PDeals --> BBack
+    BBack --> Contacts
+    BBack --> Deals
+            </div>
+            <p style="margin-top: 0.75rem;">
+              <a href="so_r_hub_spot_forms_architecture_page.html#flows" style="color: var(--accent-2);">→ View all diagrams in full documentation</a>
+            </p>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer>
+      <div class="footer-inner">
+        <span>
+          School of Rock HubSpot Forms Discovery Tracker · Interactive version
+        </span>
+        <span>
+          Data saved in browser localStorage
+        </span>
+      </div>
+    </footer>
+  </div>
+</body>
+
+<!-- Diagram Modal -->
+<div class="diagram-modal" id="diagram-modal">
+  <div class="diagram-modal-content">
+    <div class="diagram-modal-header">
+      <div class="diagram-modal-title" id="diagram-modal-title">Diagram</div>
+      <div class="diagram-controls">
+        <button class="diagram-btn" id="zoom-out">-</button>
+        <button class="diagram-btn" id="zoom-reset">Reset</button>
+        <button class="diagram-btn" id="zoom-in">+</button>
+        <button class="diagram-btn" id="diagram-close">Close</button>
+      </div>
+    </div>
+    <div class="diagram-modal-body">
+      <div class="diagram-viewer" id="diagram-viewer">
+        <div class="diagram-viewer-inner" id="diagram-viewer-inner"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.5/dist/mermaid.min.js"></script>
+<script>
+  // Initialize Mermaid
+  if (window.mermaid) {
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: "dark",
+      securityLevel: "loose",
+      flowchart: { htmlLabels: true, useMaxWidth: false },
+      themeVariables: {
+        primaryColor: "#0b1224",
+        primaryBorderColor: "#e92b2d",
+        primaryTextColor: "#f8fafc",
+        lineColor: "#e92b2d",
+        secondaryColor: "#0f172a",
+      },
+    });
+  }
+
+  // State management
+  const STORAGE_KEY = 'sor_discovery_state';
+  const TOTAL_QUESTIONS = 10;
+
+  function getState() {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      return JSON.parse(saved);
+    }
+    return {
+      questions: {},
+      lastUpdated: null
+    };
+  }
+
+  function saveState(state) {
+    state.lastUpdated = new Date().toISOString();
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    updateLastUpdated(state.lastUpdated);
+    updateProgress();
+  }
+
+  function updateLastUpdated(timestamp) {
+    const el = document.getElementById('last-updated');
+    if (timestamp) {
+      const date = new Date(timestamp);
+      el.textContent = `Last saved: ${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
+    }
+  }
+
+  function updateProgress() {
+    const state = getState();
+    const answered = Object.values(state.questions).filter(q => q.checked).length;
+    const percent = Math.round((answered / TOTAL_QUESTIONS) * 100);
+
+    document.getElementById('progress-count').textContent = `${answered} / ${TOTAL_QUESTIONS}`;
+    document.getElementById('progress-fill').style.width = `${percent}%`;
+    document.getElementById('progress-percent').textContent = `${percent}%`;
+  }
+
+  function toggleAnswer(id) {
+    const area = document.getElementById(`answer-area-${id}`);
+    area.classList.toggle('hidden');
+
+    const btn = area.parentElement.querySelector('.toggle-answer');
+    if (area.classList.contains('hidden')) {
+      btn.textContent = '+ Add Answer';
+    } else {
+      btn.textContent = '− Hide Answer';
+    }
+  }
+
+  function saveAnswer(id) {
+    const textarea = document.getElementById(`answer-${id}`);
+    const answer = textarea.value.trim();
+
+    const state = getState();
+    if (!state.questions[id]) {
+      state.questions[id] = {};
+    }
+    state.questions[id].answer = answer;
+    saveState(state);
+
+    // Visual feedback
+    textarea.style.borderColor = 'rgba(34, 197, 94, 0.5)';
+    setTimeout(() => {
+      textarea.style.borderColor = '';
+    }, 1000);
+  }
+
+  function updateQuestion(id) {
+    const checkbox = document.querySelector(`.question-item[data-id="${id}"] .question-check`);
+    const statusBadge = document.getElementById(`status-${id}`);
+    const item = document.querySelector(`.question-item[data-id="${id}"]`);
+
+    const state = getState();
+    if (!state.questions[id]) {
+      state.questions[id] = {};
+    }
+    state.questions[id].checked = checkbox.checked;
+    saveState(state);
+
+    if (checkbox.checked) {
+      statusBadge.textContent = 'Answered';
+      statusBadge.className = 'status-badge answered';
+      item.classList.add('answered');
+    } else {
+      statusBadge.textContent = 'Pending';
+      statusBadge.className = 'status-badge pending';
+      item.classList.remove('answered');
+    }
+  }
+
+  function loadState() {
+    const state = getState();
+
+    for (const [id, data] of Object.entries(state.questions)) {
+      const item = document.querySelector(`.question-item[data-id="${id}"]`);
+      if (!item) continue;
+
+      const checkbox = item.querySelector('.question-check');
+      const statusBadge = document.getElementById(`status-${id}`);
+      const textarea = document.getElementById(`answer-${id}`);
+
+      if (data.checked) {
+        checkbox.checked = true;
+        statusBadge.textContent = 'Answered';
+        statusBadge.className = 'status-badge answered';
+        item.classList.add('answered');
+      }
+
+      if (data.answer && textarea) {
+        textarea.value = data.answer;
+      }
+    }
+
+    if (state.lastUpdated) {
+      updateLastUpdated(state.lastUpdated);
+    }
+
+    updateProgress();
+  }
+
+  function exportData() {
+    const state = getState();
+    const dataStr = JSON.stringify(state, null, 2);
+    const blob = new Blob([dataStr], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+
+    const date = new Date().toISOString().split('T')[0];
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `sor_discovery_${date}.json`;
+    a.click();
+
+    URL.revokeObjectURL(url);
+  }
+
+  function importData(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      try {
+        const state = JSON.parse(e.target.result);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        loadState();
+        alert('Data imported successfully!');
+      } catch (err) {
+        alert('Error importing data: ' + err.message);
+      }
+    };
+    reader.readAsText(file);
+
+    // Reset file input
+    event.target.value = '';
+  }
+
+  function clearData() {
+    if (confirm('Are you sure you want to clear all saved data? This cannot be undone.')) {
+      localStorage.removeItem(STORAGE_KEY);
+      location.reload();
+    }
+  }
+
+  // Diagram modal
+  (function() {
+    const modal = document.getElementById("diagram-modal");
+    const titleEl = document.getElementById("diagram-modal-title");
+    const viewer = document.getElementById("diagram-viewer");
+    const viewerInner = document.getElementById("diagram-viewer-inner");
+    const btnClose = document.getElementById("diagram-close");
+    const btnIn = document.getElementById("zoom-in");
+    const btnOut = document.getElementById("zoom-out");
+    const btnReset = document.getElementById("zoom-reset");
+    const openers = document.querySelectorAll(".diagram-open");
+
+    let scale = 1;
+    let translateX = 0;
+    let translateY = 0;
+    let isPanning = false;
+    let startX = 0;
+    let startY = 0;
+
+    function applyTransform() {
+      viewerInner.style.transform = `translate(calc(-50% + ${translateX}px), calc(-50% + ${translateY}px)) scale(${scale})`;
+    }
+
+    function resetView() {
+      scale = 1;
+      translateX = 0;
+      translateY = 0;
+      applyTransform();
+    }
+
+    openers.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const targetId = btn.getAttribute("data-target");
+        const title = btn.getAttribute("data-title") || "Diagram";
+        const src = document.getElementById(targetId);
+        if (!src) return;
+        titleEl.textContent = title;
+        viewerInner.innerHTML = src.innerHTML;
+        resetView();
+        modal.classList.add("active");
+      });
+    });
+
+    btnClose.addEventListener("click", () => {
+      modal.classList.remove("active");
+    });
+
+    btnIn.addEventListener("click", () => {
+      scale = scale + 0.2;
+      applyTransform();
+    });
+
+    btnOut.addEventListener("click", () => {
+      scale = Math.max(scale - 0.2, 0.05);
+      applyTransform();
+    });
+
+    btnReset.addEventListener("click", resetView);
+
+    viewer.addEventListener("wheel", (e) => {
+      e.preventDefault();
+      const delta = e.deltaY > 0 ? -0.1 : 0.1;
+      scale = Math.max(scale + delta, 0.05);
+      applyTransform();
+    }, { passive: false });
+
+    viewer.addEventListener("mousedown", (e) => {
+      isPanning = true;
+      startX = e.clientX;
+      startY = e.clientY;
+    });
+
+    window.addEventListener("mousemove", (e) => {
+      if (!isPanning) return;
+      translateX += (e.clientX - startX);
+      translateY += (e.clientY - startY);
+      startX = e.clientX;
+      startY = e.clientY;
+      applyTransform();
+    });
+
+    window.addEventListener("mouseup", () => {
+      isPanning = false;
+    });
+
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) {
+        modal.classList.remove("active");
+      }
+    });
+  })();
+
+  // Load state on page load
+  document.addEventListener('DOMContentLoaded', loadState);
+</script>
+</html>
