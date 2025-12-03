@@ -6,16 +6,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     :root {
-      --bg: #030712;
-      --bg-elevated: #0b1020;
-      --bg-soft: #10172a;
-      --accent: #22c55e;
-      --accent-soft: rgba(34, 197, 94, 0.15);
-      --accent-2: #38bdf8;
+      --bg: #0b0c10;
+      --bg-elevated: #101118;
+      --bg-soft: #14151f;
+      --accent: #d81e2d;
+      --accent-soft: rgba(216, 30, 45, 0.18);
+      --accent-2: #f25f6b;
       --text: #f8fafc;
-      --muted: #9ca3af;
-      --border-subtle: #1f2937;
-      --danger: #f97373;
+      --muted: #aeb6c1;
+      --border-subtle: #1f222b;
+      --danger: #f25f6b;
       --radius-lg: 18px;
       --radius-pill: 999px;
       --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.75);
@@ -30,7 +30,7 @@
       margin: 0;
       padding: 0;
       font-family: "Inter", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
-      background: radial-gradient(circle at 12% 20%, rgba(56, 189, 248, 0.14), transparent 28%), radial-gradient(circle at 88% 18%, rgba(168, 85, 247, 0.12), transparent 24%), linear-gradient(180deg, #020617 0%, #030712 42%, #020617 100%);
+      background: radial-gradient(circle at 18% 18%, rgba(216, 30, 45, 0.15), transparent 30%), radial-gradient(circle at 82% 20%, rgba(122, 30, 216, 0.14), transparent 26%), linear-gradient(180deg, #0b0c10 0%, #0f1119 42%, #0b0c10 100%);
       color: var(--text);
       font-size: 16px;
       line-height: 1.6;
@@ -72,9 +72,9 @@
       width: 32px;
       height: 32px;
       border-radius: 10px;
-      background: conic-gradient(from 180deg, #22c55e, #38bdf8, #a855f7, #22c55e);
+      background: conic-gradient(from 180deg, #d81e2d, #f25f6b, #6b46c1, #d81e2d);
       padding: 2px;
-      box-shadow: 0 10px 30px rgba(56, 189, 248, 0.5);
+      box-shadow: 0 10px 30px rgba(216, 30, 45, 0.45);
     }
 
     .brand-mark-inner {
@@ -86,7 +86,7 @@
       align-items: center;
       justify-content: center;
       font-size: 0.8rem;
-      color: var(--accent);
+      color: #f25f6b;
       font-weight: 700;
     }
 
@@ -132,9 +132,9 @@
     }
 
     .nav-links a.primary {
-      border-color: rgba(34, 197, 94, 0.4);
-      background: radial-gradient(circle at top left, rgba(34, 197, 94, 0.25), rgba(15, 23, 42, 0.95));
-      color: #ecfdf5;
+      border-color: rgba(216, 30, 45, 0.55);
+      background: radial-gradient(circle at top left, rgba(216, 30, 45, 0.32), rgba(15, 23, 42, 0.95));
+      color: #fde8eb;
     }
 
     main {
@@ -185,7 +185,7 @@
       padding: 0.15rem 0.5rem;
       border-radius: 999px;
       background: var(--accent-soft);
-      color: #bbf7d0;
+      color: #fde8eb;
       font-size: 0.74rem;
       text-transform: uppercase;
       letter-spacing: 0.06em;
@@ -241,10 +241,10 @@
 
     .hero-card {
       position: relative;
-      background: radial-gradient(circle at top, rgba(56, 189, 248, 0.12), transparent 60%), linear-gradient(145deg, #020617, #020617 40%, #020617 100%);
+      background: radial-gradient(circle at top, rgba(216, 30, 45, 0.12), transparent 60%), linear-gradient(145deg, #0f1119, #0f1119 40%, #0b0c10 100%);
       border-radius: 24px;
       padding: 1.3rem 1.3rem 1rem;
-      border: 1px solid rgba(31, 41, 55, 0.95);
+      border: 1px solid rgba(59, 72, 95, 0.85);
       box-shadow: var(--shadow-soft);
       overflow: hidden;
     }
@@ -362,9 +362,9 @@
     }
 
     .card {
-      background: linear-gradient(140deg, rgba(12, 18, 34, 0.98), rgba(10, 16, 30, 0.94));
+      background: linear-gradient(140deg, rgba(16, 18, 24, 0.98), rgba(14, 16, 22, 0.94));
       border-radius: var(--radius-lg);
-      border: 1px solid rgba(41, 51, 73, 0.9);
+      border: 1px solid rgba(59, 72, 95, 0.8);
       padding: 1.1rem 1.15rem 1rem;
       box-shadow: 0 20px 60px rgba(6, 11, 25, 0.72);
     }
@@ -444,21 +444,21 @@
       font-size: 0.72rem;
       padding: 0.2rem 0.55rem;
       border-radius: 999px;
-      border: 1px solid rgba(55, 65, 81, 0.95);
+      border: 1px solid rgba(59, 72, 95, 0.8);
       background: rgba(15, 23, 42, 0.96);
       color: var(--muted);
     }
 
     .pill-row span.positive {
-      border-color: rgba(34, 197, 94, 0.35);
-      background: rgba(34, 197, 94, 0.12);
-      color: #c5f2d6;
+      border-color: rgba(216, 30, 45, 0.45);
+      background: rgba(216, 30, 45, 0.16);
+      color: #f8d7dd;
     }
 
     .pill-row span.risk {
-      border-color: rgba(248, 113, 113, 0.38);
-      background: rgba(248, 113, 113, 0.14);
-      color: #fbd5d5;
+      border-color: rgba(248, 113, 113, 0.45);
+      background: rgba(248, 113, 113, 0.16);
+      color: #fcdedf;
     }
 
     .table {
@@ -503,7 +503,7 @@
     .diagram {
       margin-top: 0.5rem;
       padding: 0.85rem 0.9rem;
-      background: #0a1222;
+      background: #0d101b;
       border-radius: 14px;
       border: 1px solid rgba(59, 72, 95, 0.9);
       box-shadow: var(--shadow-soft);
@@ -535,8 +535,8 @@
       width: 8px;
       height: 8px;
       border-radius: 999px;
-      background: #38bdf8;
-      box-shadow: 0 0 0 6px rgba(56, 189, 248, 0.2);
+      background: #d81e2d;
+      box-shadow: 0 0 0 6px rgba(216, 30, 45, 0.18);
     }
 
     .diagram-note {
