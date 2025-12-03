@@ -13,7 +13,7 @@
       --accent-soft: rgba(34, 197, 94, 0.15);
       --accent-2: #38bdf8;
       --text: #f8fafc;
-      --muted: #e2e8f0;
+      --muted: #9ca3af;
       --border-subtle: #1f2937;
       --danger: #f97373;
       --radius-lg: 18px;
@@ -322,7 +322,7 @@
     }
 
     section h2 {
-      font-size: 1.25rem;
+      font-size: 1.32rem;
       margin: 0 0 0.75rem;
       display: flex;
       align-items: center;
@@ -343,8 +343,8 @@
     section p {
       margin: 0 0 0.75rem;
       font-size: 0.98rem;
-      color: var(--text);
-      text-align: justify;
+      color: var(--muted);
+      text-align: left;
     }
 
     .grid-2 {
@@ -360,11 +360,11 @@
     }
 
     .card {
-      background: linear-gradient(145deg, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.96));
+      background: linear-gradient(140deg, rgba(12, 18, 34, 0.98), rgba(10, 16, 30, 0.94));
       border-radius: var(--radius-lg);
-      border: 1px solid rgba(31, 41, 55, 0.95);
-      padding: 1rem 1rem 0.9rem;
-      box-shadow: 0 16px 45px rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(41, 51, 73, 0.9);
+      padding: 1.1rem 1.15rem 1rem;
+      box-shadow: 0 20px 60px rgba(6, 11, 25, 0.72);
     }
 
     .card-header {
@@ -375,8 +375,8 @@
     }
 
     .card-title {
-      font-size: 0.9rem;
-      font-weight: 600;
+      font-size: 1rem;
+      font-weight: 650;
     }
 
     .pill {
@@ -393,8 +393,8 @@
       padding: 0;
       margin: 0;
       font-size: 0.94rem;
-      color: var(--text);
-      text-align: justify;
+      color: var(--muted);
+      text-align: left;
     }
 
     .list li {
@@ -419,6 +419,14 @@
       font-weight: 600;
       display: inline-block;
       min-width: 160px;
+      max-width: 210px;
+    }
+
+    @media (max-width: 720px) {
+      .list strong {
+        min-width: 140px;
+        max-width: 190px;
+      }
     }
 
     .pill-row {
@@ -438,15 +446,15 @@
     }
 
     .pill-row span.positive {
-      border-color: rgba(34, 197, 94, 0.7);
-      background: rgba(22, 101, 52, 0.2);
-      color: #bbf7d0;
+      border-color: rgba(34, 197, 94, 0.35);
+      background: rgba(34, 197, 94, 0.12);
+      color: #c5f2d6;
     }
 
     .pill-row span.risk {
-      border-color: rgba(248, 113, 113, 0.8);
-      background: rgba(127, 29, 29, 0.22);
-      color: #fecaca;
+      border-color: rgba(248, 113, 113, 0.38);
+      background: rgba(248, 113, 113, 0.14);
+      color: #fbd5d5;
     }
 
     .table {
@@ -496,6 +504,7 @@
       border: 1px solid rgba(59, 72, 95, 0.9);
       box-shadow: var(--shadow-soft);
       overflow-x: auto;
+      max-height: 220px;
     }
 
     .diagram-toggle {
@@ -640,6 +649,7 @@
       border: 1px solid rgba(55, 65, 81, 0.95);
       background: rgba(15, 23, 42, 0.96);
       color: var(--muted);
+      font-weight: 600;
     }
 
     .badge-row span.key {
@@ -697,7 +707,7 @@
     }
 
     footer .footer-inner {
-      max-width: 1120px;
+      max-width: 1280px;
       margin: 0 auto;
       display: flex;
       justify-content: space-between;
@@ -1349,7 +1359,7 @@ flowchart LR
       startOnLoad: true,
       theme: "dark",
       securityLevel: "loose",
-      flowchart: { htmlLabels: true },
+      flowchart: { htmlLabels: true, useMaxWidth: false },
       themeVariables: {
         primaryColor: "#0b1224",
         primaryBorderColor: "#38bdf8",
