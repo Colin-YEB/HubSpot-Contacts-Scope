@@ -9,9 +9,9 @@
       --bg: #0b0c10;
       --bg-elevated: #101118;
       --bg-soft: #14151f;
-      --accent: #d81e2d;
-      --accent-soft: rgba(216, 30, 45, 0.18);
-      --accent-2: #f25f6b;
+      --accent: #e92b2d;
+      --accent-soft: rgba(233, 43, 45, 0.2);
+      --accent-2: #ff6b7a;
       --text: #f8fafc;
       --muted: #aeb6c1;
       --border-subtle: #1f222b;
@@ -30,7 +30,7 @@
       margin: 0;
       padding: 0;
       font-family: "Inter", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
-      background: radial-gradient(circle at 18% 18%, rgba(216, 30, 45, 0.15), transparent 30%), radial-gradient(circle at 82% 20%, rgba(122, 30, 216, 0.14), transparent 26%), linear-gradient(180deg, #0b0c10 0%, #0f1119 42%, #0b0c10 100%);
+      background: radial-gradient(circle at 18% 18%, rgba(233, 43, 45, 0.18), transparent 32%), radial-gradient(circle at 82% 20%, rgba(122, 30, 216, 0.16), transparent 26%), linear-gradient(180deg, #0b0c10 0%, #0f1119 42%, #0b0c10 100%);
       color: var(--text);
       font-size: 16px;
       line-height: 1.6;
@@ -312,8 +312,8 @@
       width: 8px;
       height: 8px;
       border-radius: 999px;
-      background: #38bdf8;
-      box-shadow: none;
+      background: var(--accent);
+      box-shadow: 0 0 0 6px rgba(233, 43, 45, 0.18);
       margin-right: 0.4rem;
     }
 
@@ -527,8 +527,8 @@
 
     .diagram-toggle:hover {
       color: var(--text);
-      border-color: rgba(56, 189, 248, 0.7);
-      background: rgba(8, 47, 73, 0.35);
+      border-color: rgba(233, 43, 45, 0.55);
+      background: rgba(233, 43, 45, 0.16);
     }
 
     .diagram-toggle .dot {
@@ -605,13 +605,13 @@
 
     .diagram-btn:hover {
       color: var(--text);
-      border-color: rgba(56, 189, 248, 0.7);
+      border-color: rgba(233, 43, 45, 0.55);
     }
 
     .diagram-modal-body {
       flex: 1;
       position: relative;
-      background: radial-gradient(circle at 18% 20%, rgba(56, 189, 248, 0.08), transparent 35%), #050816;
+      background: radial-gradient(circle at 18% 20%, rgba(233, 43, 45, 0.12), transparent 35%), #050816;
       overflow: hidden;
     }
 
@@ -657,9 +657,9 @@
     }
 
     .badge-row span.key {
-      border-color: rgba(56, 189, 248, 0.9);
-      background: rgba(8, 47, 73, 0.6);
-      color: #e0f2fe;
+      border-color: rgba(233, 43, 45, 0.7);
+      background: rgba(233, 43, 45, 0.16);
+      color: #fde8eb;
     }
 
     .timeline {
@@ -1366,9 +1366,9 @@ flowchart LR
       flowchart: { htmlLabels: true, useMaxWidth: false },
       themeVariables: {
         primaryColor: "#0b1224",
-        primaryBorderColor: "#38bdf8",
-        primaryTextColor: "#e5e7eb",
-        lineColor: "#38bdf8",
+        primaryBorderColor: "#e92b2d",
+        primaryTextColor: "#f8fafc",
+        lineColor: "#e92b2d",
         secondaryColor: "#0f172a",
       },
     });
