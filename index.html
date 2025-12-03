@@ -12,8 +12,8 @@
       --accent: #22c55e;
       --accent-soft: rgba(34, 197, 94, 0.15);
       --accent-2: #38bdf8;
-      --text: #e5e7eb;
-      --muted: #9ca3af;
+      --text: #f8fafc;
+      --muted: #cbd5e1;
       --border-subtle: #1f2937;
       --danger: #f97373;
       --radius-lg: 18px;
@@ -32,6 +32,7 @@
       font-family: "Inter", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
       background: radial-gradient(circle at 12% 20%, rgba(56, 189, 248, 0.14), transparent 28%), radial-gradient(circle at 88% 18%, rgba(168, 85, 247, 0.12), transparent 24%), linear-gradient(180deg, #020617 0%, #030712 42%, #020617 100%);
       color: var(--text);
+      font-size: 16px;
     }
 
     .page {
@@ -109,7 +110,7 @@
       display: flex;
       flex-wrap: wrap;
       gap: 0.5rem;
-      font-size: 0.8rem;
+      font-size: 0.86rem;
     }
 
     .nav-links a {
@@ -198,7 +199,7 @@
 
     .hero-sub {
       color: var(--muted);
-      font-size: 0.95rem;
+      font-size: 1.02rem;
       max-width: 38rem;
     }
 
@@ -271,7 +272,7 @@
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 0.45rem;
-      font-size: 0.72rem;
+      font-size: 0.8rem;
     }
 
     .hero-chip {
@@ -301,7 +302,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 0.75rem;
+      font-size: 0.82rem;
       color: var(--muted);
     }
 
@@ -309,8 +310,8 @@
       width: 8px;
       height: 8px;
       border-radius: 999px;
-      background: #4ade80;
-      box-shadow: 0 0 0 6px rgba(34, 197, 94, 0.18);
+      background: #38bdf8;
+      box-shadow: none;
       margin-right: 0.4rem;
     }
 
@@ -340,7 +341,7 @@
 
     section p {
       margin: 0 0 0.75rem;
-      font-size: 0.9rem;
+      font-size: 0.98rem;
       color: var(--muted);
     }
 
@@ -389,7 +390,7 @@
       list-style: none;
       padding: 0;
       margin: 0;
-      font-size: 0.86rem;
+      font-size: 0.94rem;
       color: var(--muted);
     }
 
@@ -447,7 +448,7 @@
       width: 100%;
       border-collapse: collapse;
       margin-top: 0.6rem;
-      font-size: 0.8rem;
+      font-size: 0.86rem;
     }
 
     .table th,
@@ -464,8 +465,8 @@
 
     .table td.code {
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      font-size: 0.78rem;
-      color: #e5e7eb;
+      font-size: 0.82rem;
+      color: #f8fafc;
     }
 
     .code-block {
@@ -475,8 +476,8 @@
       border-radius: 12px;
       border: 1px solid rgba(30, 64, 175, 0.85);
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      font-size: 0.78rem;
-      color: #e5e7eb;
+      font-size: 0.82rem;
+      color: #f8fafc;
       overflow-x: auto;
       max-height: 300px;
       white-space: pre;
@@ -662,7 +663,7 @@
       position: relative;
       padding-left: 0.7rem;
       margin-bottom: 0.55rem;
-      font-size: 0.85rem;
+      font-size: 0.92rem;
       color: var(--muted);
     }
 
@@ -1239,6 +1240,32 @@ flowchart LR
                 <li>Iterate on workflows and directive encoding as new edge cases emerge.</li>
               </ul>
             </div>
+          </div>
+        </section>
+
+        <!-- DISCOVERY QUESTIONS -->
+        <section id="discovery-questions">
+          <h2>
+            Questions for Discovery
+            <span class="badge">Pre/during discovery alignment</span>
+          </h2>
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">Items to lock before build</div>
+              <div class="pill">Capture answers early</div>
+            </div>
+            <ul class="list">
+              <li><strong>Location taxonomy & mapping:</strong> final single-select list, do we also need a multi-select helper, and how each value maps to Bridge/Pike13 (record owner, IDs).</li>
+              <li><strong>Owner model:</strong> per-location owner roster and escalation rules; confirm multi_form_owner stays append-only and is never cleared.</li>
+              <li><strong>Pike13 IDs:</strong> dedicated Contact/Deal Pike13 ID fields (per-location vs single) to replace the hs_object_id placeholder; how to append multiple IDs for cross-location contacts.</li>
+              <li><strong>Bridge contract:</strong> exact payload schema (Contact + optional Deal), required fields, response (IDs/status), idempotency key (email + location?), and retry/error handling.</li>
+              <li><strong>Dedupe & lead status:</strong> rules when a known contact submits again; where “lead status” lives per location line and how to prevent lifecycle regression.</li>
+              <li><strong>Deal strategy:</strong> rely on Pike13/automation to create trial/enrollment deals, and whether to add the lightweight Lead pipeline (New, Waiting, Contacted, Won, Lost).</li>
+              <li><strong>Forms inventory:</strong> list of public/internal forms and which should bypass lifecycle, tasks, or deals.</li>
+              <li><strong>Tasking & SLA:</strong> assignment rules per location, SLAs, throttling to avoid task spam, and alerts when Bridge latency/failures occur.</li>
+              <li><strong>Two-way sync scope:</strong> which Pike13 fields (if any) should sync back (status, schedule, attendance) and conflict resolution rules.</li>
+              <li><strong>Cross-location handling:</strong> how Bridge selects/creates the right Pike13 record when a contact spans locations; storage pattern for multiple Pike13 IDs.</li>
+            </ul>
           </div>
         </section>
 
