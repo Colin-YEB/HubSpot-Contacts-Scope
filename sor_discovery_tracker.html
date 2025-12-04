@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>School of Rock – HubSpot Forms Architecture & Discovery Tracker</title>
+  <title>School of Rock – HubSpot Forms & Contact-Centric Architecture</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     :root {
@@ -19,12 +19,6 @@
       --radius-lg: 18px;
       --radius-pill: 999px;
       --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.75);
-      --sor-blue: #3b82f6;
-      --metajive-purple: #8b5cf6;
-      --both-orange: #f59e0b;
-      --answered-green: #22c55e;
-      --pending-red: #ef4444;
-      --partial-yellow: #eab308;
       scroll-behavior: smooth;
     }
 
@@ -321,76 +315,6 @@
       background: var(--accent);
       box-shadow: 0 0 0 6px rgba(233, 43, 45, 0.18);
       margin-right: 0.4rem;
-    }
-
-    /* Progress Tracker */
-    .progress-tracker {
-      background: linear-gradient(135deg, rgba(34, 197, 94, 0.1), rgba(59, 130, 246, 0.1));
-      border: 1px solid rgba(34, 197, 94, 0.3);
-      border-radius: 16px;
-      padding: 1rem 1.25rem;
-      margin-top: 1rem;
-    }
-
-    .progress-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 0.5rem;
-    }
-
-    .progress-count {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--answered-green);
-    }
-
-    .progress-label {
-      font-size: 0.85rem;
-      color: var(--muted);
-    }
-
-    .progress-bar {
-      height: 8px;
-      background: rgba(15, 23, 42, 0.8);
-      border-radius: 999px;
-      overflow: hidden;
-    }
-
-    .progress-fill {
-      height: 100%;
-      background: linear-gradient(90deg, var(--answered-green), var(--sor-blue));
-      border-radius: 999px;
-      transition: width 0.3s ease;
-    }
-
-    .data-controls {
-      display: flex;
-      gap: 0.5rem;
-      margin-top: 0.75rem;
-      flex-wrap: wrap;
-    }
-
-    .data-btn {
-      padding: 0.4rem 0.8rem;
-      border-radius: 8px;
-      border: 1px solid rgba(59, 72, 95, 0.8);
-      background: rgba(15, 23, 42, 0.9);
-      color: var(--muted);
-      font-size: 0.78rem;
-      cursor: pointer;
-      transition: all 0.15s ease;
-    }
-
-    .data-btn:hover {
-      color: var(--text);
-      border-color: var(--sor-blue);
-      background: rgba(59, 130, 246, 0.15);
-    }
-
-    .data-btn.danger:hover {
-      border-color: var(--danger);
-      background: rgba(242, 95, 107, 0.15);
     }
 
     /* Sections */
@@ -738,242 +662,45 @@
       color: #fde8eb;
     }
 
-    /* Interactive Question Styles */
-    .question-item {
-      background: rgba(15, 23, 42, 0.6);
-      border: 1px solid rgba(59, 72, 95, 0.6);
-      border-radius: 12px;
-      padding: 1rem;
-      margin-bottom: 0.75rem;
-      transition: all 0.2s ease;
+    .timeline {
+      position: relative;
+      padding-left: 1rem;
+      margin-top: 0.5rem;
     }
 
-    .question-item:hover {
-      border-color: rgba(59, 72, 95, 0.9);
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 0.3rem;
+      top: 0.2rem;
+      bottom: 0.2rem;
+      width: 2px;
+      background: linear-gradient(to bottom, rgba(51, 65, 85, 0.9), rgba(15, 23, 42, 0.5));
     }
 
-    .question-item.answered {
-      border-color: rgba(34, 197, 94, 0.4);
-      background: rgba(34, 197, 94, 0.05);
-    }
-
-    .question-header {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.75rem;
-    }
-
-    .question-check {
-      width: 20px;
-      height: 20px;
-      margin-top: 2px;
-      accent-color: var(--answered-green);
-      cursor: pointer;
-    }
-
-    .question-content {
-      flex: 1;
-    }
-
-    .question-top {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-      margin-bottom: 0.35rem;
-    }
-
-    .owner-badge {
-      font-size: 0.68rem;
-      font-weight: 600;
-      padding: 0.15rem 0.5rem;
-      border-radius: 999px;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    .owner-badge.sor {
-      background: rgba(59, 130, 246, 0.2);
-      border: 1px solid rgba(59, 130, 246, 0.5);
-      color: #93c5fd;
-    }
-
-    .owner-badge.metajive {
-      background: rgba(139, 92, 246, 0.2);
-      border: 1px solid rgba(139, 92, 246, 0.5);
-      color: #c4b5fd;
-    }
-
-    .owner-badge.both {
-      background: rgba(245, 158, 11, 0.2);
-      border: 1px solid rgba(245, 158, 11, 0.5);
-      color: #fcd34d;
-    }
-
-    .status-badge {
-      font-size: 0.68rem;
-      font-weight: 600;
-      padding: 0.15rem 0.5rem;
-      border-radius: 999px;
-    }
-
-    .status-badge.answered {
-      background: rgba(34, 197, 94, 0.2);
-      border: 1px solid rgba(34, 197, 94, 0.5);
-      color: #86efac;
-    }
-
-    .status-badge.pending {
-      background: rgba(239, 68, 68, 0.2);
-      border: 1px solid rgba(239, 68, 68, 0.5);
-      color: #fca5a5;
-    }
-
-    .question-text {
+    .timeline-step {
+      position: relative;
+      padding-left: 0.7rem;
+      margin-bottom: 0.55rem;
       font-size: 0.92rem;
-      color: var(--text);
-      line-height: 1.5;
-    }
-
-    .question-text strong {
-      color: var(--accent-2);
-    }
-
-    .toggle-answer {
-      margin-top: 0.5rem;
-      padding: 0.3rem 0.6rem;
-      border-radius: 6px;
-      border: 1px solid rgba(59, 72, 95, 0.6);
-      background: transparent;
-      color: var(--muted);
-      font-size: 0.75rem;
-      cursor: pointer;
-      transition: all 0.15s ease;
-    }
-
-    .toggle-answer:hover {
-      border-color: var(--sor-blue);
-      color: var(--text);
-    }
-
-    .answer-area {
-      margin-top: 0.75rem;
-      padding-top: 0.75rem;
-      border-top: 1px solid rgba(59, 72, 95, 0.4);
-    }
-
-    .answer-area textarea {
-      width: 100%;
-      min-height: 80px;
-      padding: 0.6rem;
-      border-radius: 8px;
-      border: 1px solid rgba(59, 72, 95, 0.6);
-      background: rgba(2, 6, 23, 0.8);
-      color: var(--text);
-      font-family: inherit;
-      font-size: 0.88rem;
-      resize: vertical;
-    }
-
-    .answer-area textarea:focus {
-      outline: none;
-      border-color: var(--sor-blue);
-    }
-
-    .save-answer {
-      margin-top: 0.5rem;
-      padding: 0.4rem 1rem;
-      border-radius: 6px;
-      border: 1px solid var(--answered-green);
-      background: rgba(34, 197, 94, 0.15);
-      color: #86efac;
-      font-size: 0.78rem;
-      cursor: pointer;
-      transition: all 0.15s ease;
-    }
-
-    .save-answer:hover {
-      background: rgba(34, 197, 94, 0.25);
-    }
-
-    /* Decision Log */
-    .decision-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.75rem;
-      padding: 0.6rem 0;
-      border-bottom: 1px solid rgba(59, 72, 95, 0.4);
-    }
-
-    .decision-item:last-child {
-      border-bottom: none;
-    }
-
-    .decision-check {
-      color: var(--answered-green);
-      font-size: 1rem;
-      margin-top: 2px;
-    }
-
-    .decision-text {
-      font-size: 0.9rem;
       color: var(--muted);
     }
 
-    .decision-text strong {
-      color: var(--text);
-    }
-
-    /* Stakeholder section */
-    .stakeholder-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1rem;
-      margin-top: 0.5rem;
-    }
-
-    .stakeholder-card {
-      background: rgba(15, 23, 42, 0.6);
-      border: 1px solid rgba(59, 72, 95, 0.5);
-      border-radius: 12px;
-      padding: 1rem;
-    }
-
-    .stakeholder-name {
-      font-weight: 600;
-      color: var(--text);
-      margin-bottom: 0.25rem;
-    }
-
-    .stakeholder-role {
-      font-size: 0.82rem;
-      color: var(--muted);
-      margin-bottom: 0.5rem;
-    }
-
-    .stakeholder-org {
-      font-size: 0.75rem;
-      padding: 0.15rem 0.5rem;
+    .timeline-step::before {
+      content: "";
+      position: absolute;
+      left: -0.03rem;
+      top: 0.2rem;
+      width: 9px;
+      height: 9px;
       border-radius: 999px;
-      display: inline-block;
+      border: 2px solid rgba(148, 163, 184, 1);
+      background: #020617;
     }
 
-    .stakeholder-org.sor {
-      background: rgba(59, 130, 246, 0.2);
-      border: 1px solid rgba(59, 130, 246, 0.4);
-      color: #93c5fd;
-    }
-
-    .stakeholder-org.metajive {
-      background: rgba(139, 92, 246, 0.2);
-      border: 1px solid rgba(139, 92, 246, 0.4);
-      color: #c4b5fd;
-    }
-
-    .stakeholder-org.yeb {
-      background: rgba(245, 158, 11, 0.2);
-      border: 1px solid rgba(245, 158, 11, 0.4);
-      color: #fcd34d;
+    .timeline-step strong {
+      color: var(--text);
+      font-weight: 500;
     }
 
     footer {
@@ -1004,17 +731,18 @@
           </div>
           <div class="brand-text">
             <div class="brand-name">HubSpot Forms Architecture</div>
-            <div class="brand-sub">School of Rock · Discovery Tracker</div>
+            <div class="brand-sub">School of Rock · Contact-first CRM & Bridge Integration</div>
           </div>
         </div>
         <nav class="nav-links">
           <a href="#scope">Scope</a>
+          <a href="#commercial">Commercial</a>
           <a href="#architecture">Architecture</a>
           <a href="#data-model">Data Model</a>
           <a href="#flows">Flows</a>
           <a href="#implementation">Implementation</a>
-          <a href="#risks">Risks</a>
-          <a href="#discovery-questions" class="primary">Discovery Q&A</a>
+          <a href="#proposed-decisions">Decisions</a>
+          <a href="#risks" class="primary">Risks & Open Items</a>
         </nav>
       </div>
     </header>
@@ -1033,7 +761,8 @@
             </h1>
             <p class="hero-sub">
               This page summarizes the Metajive discovery scope, the target HubSpot architecture, and the
-              end-to-end data flows between HubSpot, Bridge, and Pike13. Check items off as discovery progresses and capture answers directly on this page.
+              end-to-end data flows between HubSpot, Bridge, and Pike13. It is designed as a living reference for
+              marketing, CRM, product, and engineering teams.
             </p>
             <div class="hero-tags">
               <span class="tag">Single HubSpot portal · Franchise users</span>
@@ -1044,26 +773,7 @@
             <div class="hero-meta">
               <span><strong>Client:</strong> School of Rock (YEB)</span>
               <span><strong>Partner:</strong> Metajive</span>
-              <span><strong>Timeframe (Discovery):</strong> Dec 2025 – Jan 2026</span>
-            </div>
-
-            <!-- Progress Tracker -->
-            <div class="progress-tracker">
-              <div class="progress-header">
-                <div>
-                  <span class="progress-count" id="progress-count">0 / 10</span>
-                  <span class="progress-label"> questions answered</span>
-                </div>
-              </div>
-              <div class="progress-bar">
-                <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
-              </div>
-              <div class="data-controls">
-                <button class="data-btn" onclick="exportData()">📥 Export JSON</button>
-                <button class="data-btn" onclick="document.getElementById('import-file').click()">📤 Import JSON</button>
-                <button class="data-btn danger" onclick="clearAllData()">🗑️ Clear All</button>
-                <input type="file" id="import-file" accept=".json" style="display:none" onchange="importData(event)">
-              </div>
+              <span><strong>Timeframe (Discovery):</strong> Dec 8, 2025 – Jan 30, 2026</span>
             </div>
           </div>
 
@@ -1102,8 +812,9 @@
               <div class="hero-footer">
                 <div style="display:flex;align-items:center;gap:0.3rem;">
                   <span class="hero-status-dot"></span>
-                  <span>Discovery-ready – implementation follows SOW output.</span>
+                  <span>Discovery-ready – implementation follows SOW output. (SOW details may change based on discovery findings)</span>
                 </div>
+                <span>Audience: Marketing · CRM · Product · Dev</span>
               </div>
             </div>
           </div>
@@ -1131,6 +842,9 @@
                 <span class="positive">Discovery only</span>
                 <span>Implementation of CRM strategy is out of scope</span>
                 <span>API / integration build is out of scope</span>
+                <span>HubSpot license changes out of scope</span>
+                <span>Data migration out of scope</span>
+                <span>User training out of scope</span>
               </div>
             </div>
 
@@ -1143,13 +857,67 @@
                 <li><strong>Move from Deal-first → Contact-first:</strong> franchise users primarily work leads from the Contact record.</li>
                 <li><strong>Use HubSpot forms:</strong> all public forms submit into HubSpot with a required Location field.</li>
                 <li><strong>Multi-owner support:</strong> each Contact can be owned by multiple users via a dedicated multi-user property.</li>
-                <li><strong>Bridge & Pike13 alignment:</strong> Bridge creates/links Pike13 contacts and deals based on HubSpot data and Location.</li>
+                <li><strong>Bridge & Pike13 alignment:</strong> Bridge creates/links Pike13 contacts and deals based on HubSpot data and Location. <em>Note: OpsHub works at Contact/Customer level only; syncs to one account. Bridge handles school routing.</em></li>
               </ul>
               <div class="pill-row">
                 <span class="positive">Respect Single Portal + Many Locations</span>
                 <span class="positive">Avoid duplicate Contacts and Deals</span>
                 <span class="risk">Avoid lifecycle moving backwards</span>
               </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- COMMERCIAL -->
+        <section id="commercial">
+          <h2>
+            Commercial Terms
+            <span class="badge">Discovery engagement</span>
+          </h2>
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">Engagement Details</div>
+              <div class="pill">Time & Materials</div>
+            </div>
+            <ul class="list">
+              <li><strong>Structure:</strong> Time & Materials (T&M)</li>
+              <li><strong>Cap:</strong> 40 hours maximum</li>
+              <li><strong>Rate:</strong> As per existing Metajive MSA</li>
+              <li><strong>Deliverable:</strong> Implementation SOW with technical approach and effort estimates</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- RESPONSIBILITIES -->
+        <section id="responsibilities">
+          <h2>
+            Responsibilities
+            <span class="badge">RACI overview</span>
+          </h2>
+          <div class="grid-2">
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">Metajive (Partner)</div>
+                <div class="pill">Discovery lead</div>
+              </div>
+              <ul class="list">
+                <li>Lead discovery sessions and stakeholder meetings</li>
+                <li>Document technical scenarios and risks</li>
+                <li>Produce implementation SOW</li>
+                <li>Provide HubSpot and integration expertise</li>
+              </ul>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">School of Rock (Client)</div>
+                <div class="pill">Business owner</div>
+              </div>
+              <ul class="list">
+                <li>Provide access to HubSpot portal and Bridge documentation</li>
+                <li>Participate in discovery sessions</li>
+                <li>Confirm business requirements and decisions</li>
+                <li>Review and approve deliverables</li>
+              </ul>
             </div>
           </div>
         </section>
@@ -1221,14 +989,14 @@
                   <tr>
                     <td>Location</td>
                     <td class="code">location</td>
-                    <td>Dropdown (single-select)</td>
-                    <td>Captured from HubSpot forms; drives routing and Bridge/Pike13 mapping. May need multi-select helper.</td>
+                    <td>Multi-select</td>
+                    <td>Captured from HubSpot forms; format <code>[location name]+[school id]+[order added]</code> (e.g., <code>Fayetteville521_01</code>). Drives routing, Bridge handles school-specific logic. Data dictionary required for field mapping.</td>
                   </tr>
                   <tr>
                     <td>School location lifecycle details</td>
                     <td class="code">school_location_lifecycle_details</td>
                     <td>Single-line text</td>
-                    <td>Encoded automation directive (lifecycle, alert, pipeline, location). One line per location.</td>
+                    <td>Encoded automation directive (lifecycle, alert, pipeline, location).</td>
                   </tr>
                   <tr>
                     <td>Pike13 Contact ID(s)</td>
@@ -1252,13 +1020,13 @@
               </div>
               <p class="code-label">Recommended encoding:</p>
               <div class="code-block">
-loc=DENVER_01; lifecycle=LEAD; alert=new_lead; pipeline=TRIAL
-loc=BOULDER_02; lifecycle=MQL; alert=trial_followup; pipeline=ENROLLMENT
+loc=Fayetteville521_01; lifecycle=LEAD; alert=new_lead; pipeline=TRIAL
+loc=Boulder123_02; lifecycle=MQL; alert=trial_followup; pipeline=ENROLLMENT
               </div>
               <p>
                 This single-line field is populated by workflows and read by other workflows (and Bridge) to determine
                 what should happen next: which task to create (same alert set across locations), whether to create a Deal,
-                how to adjust lifecycle, and which pipeline to use.
+                how to adjust lifecycle, and which pipeline to use. Current direction: handle early lead state on the Contact; an optional lightweight 3-stage Lead deal pipeline can be added later if needed.
               </p>
               <div class="badge-row">
                 <span class="key">Set by automation only</span>
@@ -1534,7 +1302,7 @@ flowchart LR
               <ul class="list">
                 <li>Update Bridge to consume new payloads (Location, owners, lifecycle details).</li>
                 <li>Implement Pike13 contact/deal creation based on email + Location.</li>
-                <li>Implement sync-back of Pike13 IDs and status into HubSpot contacts/deals.</li>
+                <li>Implement sync-back of Pike13 IDs and status into HubSpot contacts/deals. <em>(OpsHub works at Contact/Customer level; Bridge orchestrates two-way sync)</em></li>
                 <li>Define clear ownership rules when HubSpot vs Pike13 values differ.</li>
               </ul>
             </div>
@@ -1548,6 +1316,69 @@ flowchart LR
                 <li>Build dashboards for lead volume, response time, trial/ enrollment conversion by Location.</li>
                 <li>Monitor duplicate creation, owner assignment accuracy, and lifecycle correctness.</li>
                 <li>Iterate on workflows and directive encoding as new edge cases emerge.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- DISCOVERY QUESTIONS -->
+        <section id="discovery-questions">
+          <h2>
+            Questions for Discovery
+            <span class="badge">Pre/during discovery alignment</span>
+          </h2>
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">Items to lock before build</div>
+              <div class="pill">Capture answers early</div>
+            </div>
+            <ul class="list">
+              <li><strong>Location taxonomy & mapping:</strong> final single-select list, do we also need a multi-select helper, and how each value maps to Bridge/Pike13 (record owner, IDs).</li>
+              <li><strong>Owner model:</strong> per-location owner roster and escalation rules; confirm multi_form_owner stays append-only and is never cleared.</li>
+              <li><strong>Pike13 IDs:</strong> dedicated Contact/Deal Pike13 ID fields (per-location vs single) to replace the hs_object_id placeholder; how to append multiple IDs for cross-location contacts.</li>
+              <li><strong>Bridge contract:</strong> exact payload schema (Contact + optional Deal), required fields, response (IDs/status), idempotency key (email + location?), and retry/error handling.</li>
+              <li><strong>Dedupe & lead status:</strong> rules when a known contact submits again; where “lead status” lives per location line and how to prevent lifecycle regression.</li>
+              <li><strong>Deal strategy:</strong> rely on Pike13/automation to create trial/enrollment deals, and whether to add the lightweight Lead pipeline (New, Waiting, Contacted, Won, Lost).</li>
+              <li><strong>Forms inventory:</strong> list of public/internal forms and which should bypass lifecycle, tasks, or deals.</li>
+              <li><strong>Tasking & SLA:</strong> assignment rules per location, SLAs, throttling to avoid task spam, and alerts when Bridge latency/failures occur.</li>
+              <li><strong>Two-way sync scope:</strong> which Pike13 fields (if any) should sync back (status, schedule, attendance) and conflict resolution rules.</li>
+              <li><strong>Cross-location handling:</strong> how Bridge selects/creates the right Pike13 record when a contact spans locations; storage pattern for multiple Pike13 IDs.</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- PROPOSED DECISIONS -->
+        <section id="proposed-decisions">
+          <h2>
+            Proposed Decisions
+            <span class="badge">Direction confirmed or pending</span>
+          </h2>
+          <div class="grid-2">
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">Confirmed Decisions</div>
+                <div class="pill">Locked in</div>
+              </div>
+              <ul class="list">
+                <li><strong>Location field:</strong> Multi-select with format <code>[location name]+[school id]+[order added]</code> (e.g., <code>Fayetteville521_01</code>)</li>
+                <li><strong>multi_form_owner:</strong> Append-only (never cleared)</li>
+                <li><strong>Lifecycle handling:</strong> Use "lead status" per location line in <code>school_location_lifecycle_details</code></li>
+                <li><strong>Task SLA:</strong> No formal SLA (&lt;24hr typical); no throttling needed</li>
+                <li><strong>OpsHub sync:</strong> Contact/Customer level only; Bridge orchestrates two-way sync</li>
+                <li><strong>Data dictionary:</strong> Required for field mapping between HubSpot, Bridge, and Pike13</li>
+              </ul>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">Pending Decisions</div>
+                <div class="pill">To confirm during discovery</div>
+              </div>
+              <ul class="list">
+                <li><strong>Lead pipeline:</strong> Either encode in <code>school_location_lifecycle_details</code> OR use new deal pipeline (New → Waiting → Contacted → Won → Lost)</li>
+                <li><strong>Deal trigger:</strong> "Won" on HubSpot pipeline OR Pike13 conversion points (trial signup, enrollment)</li>
+                <li><strong>Pike13 ID storage:</strong> Single field vs per-location (array/JSON) – TBD during discovery</li>
+                <li><strong>Bridge contract:</strong> Exact payload schema, idempotency keys, retry/error handling – TBD</li>
+                <li><strong>Cross-location handling:</strong> How Bridge selects/creates Pike13 record when contact spans locations</li>
               </ul>
             </div>
           </div>
@@ -1588,344 +1419,21 @@ flowchart LR
             </div>
           </div>
         </section>
-
-        <!-- ============================================ -->
-        <!-- DISCOVERY Q&A SECTION (BOTTOM) -->
-        <!-- ============================================ -->
-
-        <!-- DISCOVERY QUESTIONS (Interactive) -->
-        <section id="discovery-questions">
-          <h2>
-            Discovery Questions
-            <span class="badge">Track answers during discovery</span>
-          </h2>
-          <p>Check items off as they're answered. Add notes in the answer fields. Data saves to your browser automatically.</p>
-
-          <div class="card">
-            <div class="card-header">
-              <div class="card-title">Critical Questions (Block Implementation)</div>
-              <div class="pill">Must answer before build</div>
-            </div>
-
-            <div class="question-item" data-id="q1">
-              <div class="question-header">
-                <input type="checkbox" class="question-check" onchange="updateQuestion('q1')">
-                <div class="question-content">
-                  <div class="question-top">
-                    <span class="owner-badge both">Both</span>
-                    <span class="status-badge pending" id="status-q1">Pending</span>
-                  </div>
-                  <div class="question-text">
-                    <strong>Location → Bridge/Pike13 ID mapping:</strong> How does each Location value map to Pike13 record owners/IDs? What is the canonical Location value list?
-                  </div>
-                  <button class="toggle-answer" onclick="toggleAnswer('q1')">+ Answer</button>
-                  <div class="answer-area" id="answer-q1" style="display:none;">
-                    <textarea id="text-q1" placeholder="Enter answer..." onchange="saveAnswer('q1')"></textarea>
-                    <button class="save-answer" onclick="saveAnswer('q1')">Save Answer</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="question-item" data-id="q2">
-              <div class="question-header">
-                <input type="checkbox" class="question-check" onchange="updateQuestion('q2')">
-                <div class="question-content">
-                  <div class="question-top">
-                    <span class="owner-badge metajive">Metajive</span>
-                    <span class="status-badge pending" id="status-q2">Pending</span>
-                  </div>
-                  <div class="question-text">
-                    <strong>Pike13 ID field structure:</strong> Single ID field vs per-location IDs (array/JSON)? Where stored on Contact/Deal? How to append multiple IDs for cross-location contacts?
-                  </div>
-                  <button class="toggle-answer" onclick="toggleAnswer('q2')">+ Answer</button>
-                  <div class="answer-area" id="answer-q2" style="display:none;">
-                    <textarea id="text-q2" placeholder="Enter answer..." onchange="saveAnswer('q2')"></textarea>
-                    <button class="save-answer" onclick="saveAnswer('q2')">Save Answer</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="question-item" data-id="q3">
-              <div class="question-header">
-                <input type="checkbox" class="question-check" onchange="updateQuestion('q3')">
-                <div class="question-content">
-                  <div class="question-top">
-                    <span class="owner-badge metajive">Metajive</span>
-                    <span class="status-badge pending" id="status-q3">Pending</span>
-                  </div>
-                  <div class="question-text">
-                    <strong>Bridge payload contract:</strong> Exact schema (Contact + optional Deal), required fields, response shape (IDs/status), idempotency key (email+location?), retry/error behavior.
-                  </div>
-                  <button class="toggle-answer" onclick="toggleAnswer('q3')">+ Answer</button>
-                  <div class="answer-area" id="answer-q3" style="display:none;">
-                    <textarea id="text-q3" placeholder="Enter answer..." onchange="saveAnswer('q3')"></textarea>
-                    <button class="save-answer" onclick="saveAnswer('q3')">Save Answer</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="question-item" data-id="q4">
-              <div class="question-header">
-                <input type="checkbox" class="question-check" onchange="updateQuestion('q4')">
-                <div class="question-content">
-                  <div class="question-top">
-                    <span class="owner-badge sor">SoR</span>
-                    <span class="status-badge pending" id="status-q4">Pending</span>
-                  </div>
-                  <div class="question-text">
-                    <strong>Forms inventory:</strong> Complete list of public vs internal forms. Which should bypass lifecycle/task/deal automation?
-                  </div>
-                  <button class="toggle-answer" onclick="toggleAnswer('q4')">+ Answer</button>
-                  <div class="answer-area" id="answer-q4" style="display:none;">
-                    <textarea id="text-q4" placeholder="Enter answer..." onchange="saveAnswer('q4')"></textarea>
-                    <button class="save-answer" onclick="saveAnswer('q4')">Save Answer</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="question-item" data-id="q5">
-              <div class="question-header">
-                <input type="checkbox" class="question-check" onchange="updateQuestion('q5')">
-                <div class="question-content">
-                  <div class="question-top">
-                    <span class="owner-badge metajive">Metajive</span>
-                    <span class="status-badge pending" id="status-q5">Pending</span>
-                  </div>
-                  <div class="question-text">
-                    <strong>Cross-location membership:</strong> How does Bridge select/create the right Pike13 record when contact spans locations? Storage pattern for multiple Pike13 IDs?
-                  </div>
-                  <button class="toggle-answer" onclick="toggleAnswer('q5')">+ Answer</button>
-                  <div class="answer-area" id="answer-q5" style="display:none;">
-                    <textarea id="text-q5" placeholder="Enter answer..." onchange="saveAnswer('q5')"></textarea>
-                    <button class="save-answer" onclick="saveAnswer('q5')">Save Answer</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="card" style="margin-top:1rem;">
-            <div class="card-header">
-              <div class="card-title">Important Questions (Needed for Build)</div>
-              <div class="pill">Answer during discovery</div>
-            </div>
-
-            <div class="question-item" data-id="q6">
-              <div class="question-header">
-                <input type="checkbox" class="question-check" onchange="updateQuestion('q6')">
-                <div class="question-content">
-                  <div class="question-top">
-                    <span class="owner-badge sor">SoR</span>
-                    <span class="status-badge pending" id="status-q6">Pending</span>
-                  </div>
-                  <div class="question-text">
-                    <strong>Owner roster per location:</strong> Complete list of primary/backup owners for each location. Escalation rules?
-                  </div>
-                  <button class="toggle-answer" onclick="toggleAnswer('q6')">+ Answer</button>
-                  <div class="answer-area" id="answer-q6" style="display:none;">
-                    <textarea id="text-q6" placeholder="Enter answer..." onchange="saveAnswer('q6')"></textarea>
-                    <button class="save-answer" onclick="saveAnswer('q6')">Save Answer</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="question-item" data-id="q7">
-              <div class="question-header">
-                <input type="checkbox" class="question-check" onchange="updateQuestion('q7')">
-                <div class="question-content">
-                  <div class="question-top">
-                    <span class="owner-badge sor">SoR</span>
-                    <span class="status-badge pending" id="status-q7">Pending</span>
-                  </div>
-                  <div class="question-text">
-                    <strong>Task SLAs:</strong> Response time expectations per location. Throttling rules to avoid task spam?
-                  </div>
-                  <button class="toggle-answer" onclick="toggleAnswer('q7')">+ Answer</button>
-                  <div class="answer-area" id="answer-q7" style="display:none;">
-                    <textarea id="text-q7" placeholder="Enter answer..." onchange="saveAnswer('q7')"></textarea>
-                    <button class="save-answer" onclick="saveAnswer('q7')">Save Answer</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="question-item" data-id="q8">
-              <div class="question-header">
-                <input type="checkbox" class="question-check" onchange="updateQuestion('q8')">
-                <div class="question-content">
-                  <div class="question-top">
-                    <span class="owner-badge metajive">Metajive</span>
-                    <span class="status-badge pending" id="status-q8">Pending</span>
-                  </div>
-                  <div class="question-text">
-                    <strong>Error handling:</strong> How should workflows handle Bridge latency/failures? Alerts, retry logic, manual queue?
-                  </div>
-                  <button class="toggle-answer" onclick="toggleAnswer('q8')">+ Answer</button>
-                  <div class="answer-area" id="answer-q8" style="display:none;">
-                    <textarea id="text-q8" placeholder="Enter answer..." onchange="saveAnswer('q8')"></textarea>
-                    <button class="save-answer" onclick="saveAnswer('q8')">Save Answer</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="question-item" data-id="q9">
-              <div class="question-header">
-                <input type="checkbox" class="question-check" onchange="updateQuestion('q9')">
-                <div class="question-content">
-                  <div class="question-top">
-                    <span class="owner-badge sor">SoR</span>
-                    <span class="status-badge pending" id="status-q9">Pending</span>
-                  </div>
-                  <div class="question-text">
-                    <strong>Compliance/consent:</strong> Privacy messaging requirements on forms. Audit/logging needs?
-                  </div>
-                  <button class="toggle-answer" onclick="toggleAnswer('q9')">+ Answer</button>
-                  <div class="answer-area" id="answer-q9" style="display:none;">
-                    <textarea id="text-q9" placeholder="Enter answer..." onchange="saveAnswer('q9')"></textarea>
-                    <button class="save-answer" onclick="saveAnswer('q9')">Save Answer</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="question-item" data-id="q10">
-              <div class="question-header">
-                <input type="checkbox" class="question-check" onchange="updateQuestion('q10')">
-                <div class="question-content">
-                  <div class="question-top">
-                    <span class="owner-badge both">Both</span>
-                    <span class="status-badge pending" id="status-q10">Pending</span>
-                  </div>
-                  <div class="question-text">
-                    <strong>Lifecycle guardrails:</strong> Exact rules to prevent backwards movement (e.g., Customer → Lead). Who can edit lifecycle/location/ownership?
-                  </div>
-                  <button class="toggle-answer" onclick="toggleAnswer('q10')">+ Answer</button>
-                  <div class="answer-area" id="answer-q10" style="display:none;">
-                    <textarea id="text-q10" placeholder="Enter answer..." onchange="saveAnswer('q10')"></textarea>
-                    <button class="save-answer" onclick="saveAnswer('q10')">Save Answer</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- CONFIRMED DECISIONS -->
-        <section id="decisions">
-          <h2>
-            Confirmed Decisions
-            <span class="badge">Locked in during discovery</span>
-          </h2>
-          <div class="card">
-            <div class="card-header">
-              <div class="card-title">Decisions Made</div>
-              <div class="pill">Reference during build</div>
-            </div>
-
-            <div class="decision-item">
-              <span class="decision-check">✓</span>
-              <div class="decision-text">
-                <strong>Location field type:</strong> Single-select dropdown. May need a multi-select helper property for contacts at multiple locations.
-              </div>
-            </div>
-
-            <div class="decision-item">
-              <span class="decision-check">✓</span>
-              <div class="decision-text">
-                <strong>Multi-owner behavior:</strong> APPEND only. Never clear the multi_form_owner field when contact moves or joins another location—they could come back.
-              </div>
-            </div>
-
-            <div class="decision-item">
-              <span class="decision-check">✓</span>
-              <div class="decision-text">
-                <strong>Two-way sync to Pike13:</strong> Does NOT sync to Pike13. HubSpot is the source; Bridge pushes to Pike, not the reverse for these fields.
-              </div>
-            </div>
-
-            <div class="decision-item">
-              <span class="decision-check">✓</span>
-              <div class="decision-text">
-                <strong>Lead pipeline stages:</strong> New → Waiting → Contacted → Won (creates deal if automation doesn't) → Lost
-              </div>
-            </div>
-
-            <div class="decision-item">
-              <span class="decision-check">✓</span>
-              <div class="decision-text">
-                <strong>Deal creation trigger:</strong> Pike13/automation creates deals on trial/conversion. Automation handles this flow.
-              </div>
-            </div>
-
-            <div class="decision-item">
-              <span class="decision-check">✓</span>
-              <div class="decision-text">
-                <strong>Terminology:</strong> Use "lead status" (not "lifecycle") for per-location tracking in the multi-line field.
-              </div>
-            </div>
-
-            <div class="decision-item">
-              <span class="decision-check">✓</span>
-              <div class="decision-text">
-                <strong>Dedupe strategy:</strong> Use HubSpot dedupe (email) plus Location-aware logic in workflows/Bridge to avoid cross-location contamination.
-              </div>
-            </div>
-
-            <div class="decision-item">
-              <span class="decision-check">✓</span>
-              <div class="decision-text">
-                <strong>Permissions:</strong> Lifecycle/property edits locked to automation where possible; avoid user-induced regressions.
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- STAKEHOLDER CONTACTS -->
-        <section id="stakeholders">
-          <h2>
-            Stakeholder Contacts
-            <span class="badge">Key project contacts</span>
-          </h2>
-          <div class="stakeholder-grid">
-            <div class="stakeholder-card">
-              <div class="stakeholder-name">Angela O'Neill</div>
-              <div class="stakeholder-role">Project Contact</div>
-              <span class="stakeholder-org metajive">Metajive</span>
-            </div>
-            <div class="stakeholder-card">
-              <div class="stakeholder-name">Ali Kendall</div>
-              <div class="stakeholder-role">Sr Vice President, Marketing</div>
-              <span class="stakeholder-org sor">School of Rock</span>
-            </div>
-            <div class="stakeholder-card">
-              <div class="stakeholder-name">Colin Johnson</div>
-              <div class="stakeholder-role">Technical Lead</div>
-              <span class="stakeholder-org yeb">YEB</span>
-            </div>
-          </div>
-        </section>
-
       </div>
     </main>
 
     <footer>
       <div class="footer-inner">
         <span>
-          School of Rock HubSpot Forms Architecture & Discovery Tracker · Data saved in browser localStorage
+          Built as a reference page for the School of Rock HubSpot forms discovery and implementation planning.
         </span>
-        <span id="last-updated"></span>
+        <span>
+          Sections can be copied into docs, slidedecks, and implementation tickets as needed.
+        </span>
       </div>
     </footer>
   </div>
 </body>
-
-<!-- Diagram Modal -->
 <div class="diagram-modal" id="diagram-modal">
   <div class="diagram-modal-content">
     <div class="diagram-modal-header">
@@ -1944,10 +1452,8 @@ flowchart LR
     </div>
   </div>
 </div>
-
 <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.5/dist/mermaid.min.js"></script>
 <script>
-  // Mermaid initialization
   if (window.mermaid) {
     mermaid.initialize({
       startOnLoad: true,
@@ -1964,7 +1470,6 @@ flowchart LR
     });
   }
 
-  // Diagram modal functionality
   (function() {
     const modal = document.getElementById("diagram-modal");
     const titleEl = document.getElementById("diagram-modal-title");
@@ -2055,195 +1560,5 @@ flowchart LR
       }
     });
   })();
-
-  // Discovery tracker state management
-  const STORAGE_KEY = 'sor_discovery_state';
-  const TOTAL_QUESTIONS = 10;
-
-  let state = {
-    questions: {},
-    lastUpdated: null
-  };
-
-  // Load state from localStorage
-  function loadState() {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    if (saved) {
-      try {
-        state = JSON.parse(saved);
-        applyState();
-      } catch (e) {
-        console.error('Failed to load state:', e);
-      }
-    }
-    updateProgress();
-    updateLastUpdated();
-  }
-
-  // Save state to localStorage
-  function saveState() {
-    state.lastUpdated = Date.now();
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-    updateLastUpdated();
-  }
-
-  // Apply loaded state to UI
-  function applyState() {
-    for (const [qId, qData] of Object.entries(state.questions)) {
-      const item = document.querySelector(`[data-id="${qId}"]`);
-      if (!item) continue;
-
-      const checkbox = item.querySelector('.question-check');
-      const statusBadge = document.getElementById(`status-${qId}`);
-      const textarea = document.getElementById(`text-${qId}`);
-
-      if (checkbox && qData.checked) {
-        checkbox.checked = true;
-        item.classList.add('answered');
-      }
-
-      if (statusBadge && qData.checked) {
-        statusBadge.textContent = 'Answered';
-        statusBadge.className = 'status-badge answered';
-      }
-
-      if (textarea && qData.answer) {
-        textarea.value = qData.answer;
-      }
-    }
-  }
-
-  // Update question state
-  function updateQuestion(qId) {
-    const item = document.querySelector(`[data-id="${qId}"]`);
-    const checkbox = item.querySelector('.question-check');
-    const statusBadge = document.getElementById(`status-${qId}`);
-
-    if (!state.questions[qId]) {
-      state.questions[qId] = { checked: false, answer: '' };
-    }
-
-    state.questions[qId].checked = checkbox.checked;
-
-    if (checkbox.checked) {
-      item.classList.add('answered');
-      statusBadge.textContent = 'Answered';
-      statusBadge.className = 'status-badge answered';
-    } else {
-      item.classList.remove('answered');
-      statusBadge.textContent = 'Pending';
-      statusBadge.className = 'status-badge pending';
-    }
-
-    saveState();
-    updateProgress();
-  }
-
-  // Toggle answer area visibility
-  function toggleAnswer(qId) {
-    const answerArea = document.getElementById(`answer-${qId}`);
-    const btn = answerArea.previousElementSibling;
-
-    if (answerArea.style.display === 'none') {
-      answerArea.style.display = 'block';
-      btn.textContent = '- Hide Answer';
-    } else {
-      answerArea.style.display = 'none';
-      btn.textContent = '+ Answer';
-    }
-  }
-
-  // Save answer text
-  function saveAnswer(qId) {
-    const textarea = document.getElementById(`text-${qId}`);
-
-    if (!state.questions[qId]) {
-      state.questions[qId] = { checked: false, answer: '' };
-    }
-
-    state.questions[qId].answer = textarea.value;
-    saveState();
-  }
-
-  // Update progress display
-  function updateProgress() {
-    const answered = Object.values(state.questions).filter(q => q.checked).length;
-    const percent = (answered / TOTAL_QUESTIONS) * 100;
-
-    document.getElementById('progress-count').textContent = `${answered} / ${TOTAL_QUESTIONS}`;
-    document.getElementById('progress-fill').style.width = `${percent}%`;
-  }
-
-  // Update last updated timestamp
-  function updateLastUpdated() {
-    const el = document.getElementById('last-updated');
-    if (state.lastUpdated) {
-      const date = new Date(state.lastUpdated);
-      el.textContent = `Last updated: ${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
-    }
-  }
-
-  // Export data as JSON
-  function exportData() {
-    const dataStr = JSON.stringify(state, null, 2);
-    const blob = new Blob([dataStr], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `sor_discovery_${new Date().toISOString().split('T')[0]}.json`;
-    a.click();
-    URL.revokeObjectURL(url);
-  }
-
-  // Import data from JSON file
-  function importData(event) {
-    const file = event.target.files[0];
-    if (!file) return;
-
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      try {
-        state = JSON.parse(e.target.result);
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-        applyState();
-        updateProgress();
-        updateLastUpdated();
-        alert('Data imported successfully!');
-      } catch (err) {
-        alert('Failed to import: Invalid JSON file');
-      }
-    };
-    reader.readAsText(file);
-  }
-
-  // Clear all data
-  function clearAllData() {
-    if (confirm('Are you sure you want to clear all answers and progress? This cannot be undone.')) {
-      localStorage.removeItem(STORAGE_KEY);
-      state = { questions: {}, lastUpdated: null };
-
-      // Reset UI
-      document.querySelectorAll('.question-item').forEach(item => {
-        item.classList.remove('answered');
-        const checkbox = item.querySelector('.question-check');
-        if (checkbox) checkbox.checked = false;
-      });
-
-      document.querySelectorAll('.status-badge').forEach(badge => {
-        badge.textContent = 'Pending';
-        badge.className = 'status-badge pending';
-      });
-
-      document.querySelectorAll('.answer-area textarea').forEach(textarea => {
-        textarea.value = '';
-      });
-
-      updateProgress();
-      document.getElementById('last-updated').textContent = '';
-    }
-  }
-
-  // Initialize on page load
-  document.addEventListener('DOMContentLoaded', loadState);
 </script>
 </html>
