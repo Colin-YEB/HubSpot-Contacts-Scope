@@ -1522,7 +1522,7 @@ flowchart LR
     </footer>
   </div>
 </body>
-<div class="diagram-modal" id="diagram-modal">
+<div class="diagram-modal" id="diagram-modal" tabindex="-1">
   <div class="diagram-modal-content">
     <div class="diagram-modal-header">
       <div class="diagram-modal-title" id="diagram-modal-title">Diagram</div>
@@ -1543,7 +1543,10 @@ flowchart LR
       <div class="diagram-help">
         <span><kbd>Scroll</kbd> Zoom</span>
         <span><kbd>Drag</kbd> Pan</span>
-        <span><kbd>Dbl-click</kbd> Reset</span>
+        <span><kbd>+</kbd><kbd>-</kbd> Zoom</span>
+        <span><kbd>F</kbd> Fit</span>
+        <span><kbd>0</kbd> Reset</span>
+        <span><kbd>Esc</kbd> Close</span>
       </div>
     </div>
   </div>
@@ -1688,6 +1691,7 @@ flowchart LR
         viewerInner.innerHTML = src.innerHTML;
         resetView();
         modal.classList.add("active");
+        modal.focus(); // Focus modal for keyboard events
 
         // Auto-fit after a brief delay to let content render
         setTimeout(() => fitToView(), 100);
